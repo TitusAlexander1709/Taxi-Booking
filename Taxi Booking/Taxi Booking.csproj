@@ -68,8 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Controller.js" />
+    <Content Include="Scripts\Module.js" />
     <Content Include="Styles\styles.css" />
-    <Content Include="taxiApp.js" />
+    <Content Include="Scripts\taxiApp.js" />
     <Content Include="TaxiBookingPage.html" />
     <Content Include="Web.config" />
   </ItemGroup>
