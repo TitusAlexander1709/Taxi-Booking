@@ -1,12 +1,14 @@
-﻿angular.module("taxiBookingApp").controller("taxiBookingController", function ($scope, $http) {
+﻿angular.module("taxiBooking").controller("taxiBookingController", function ($scope, $http) {
 
     
 
     $scope.changeView = function (view) { 
         $scope.viewBookings = false;
         $scope.addBookings = false;
-        $scope.viewBookings = true;
+        $scope.selectedView = view; 
 
+        $scope.selectedView = true;
+        
     };
     $scope.init = function () {
   
