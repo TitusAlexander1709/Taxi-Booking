@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taxi Booking", "Taxi Booking\Taxi Booking.csproj", "{0BFEC295-819F-4E59-967D-D50A84CB9145}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BFEC295-819F-4E59-967D-D50A84CB9145}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BFEC295-819F-4E59-967D-D50A84CB9145}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BFEC295-819F-4E59-967D-D50A84CB9145}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BFEC295-819F-4E59-967D-D50A84CB9145}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82E08753-7141-478A-B3AE-2E7932C25B08}
+	EndGlobalSection
+EndGlobal
