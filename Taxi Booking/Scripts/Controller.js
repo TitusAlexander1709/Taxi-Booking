@@ -30,20 +30,24 @@
 
     $scope.addBooking = function () {
         var bookingDetails = {
-            currentPassenger: $scope.itineraries.length,
-            dropOffLocation: $scope.itineraryName,
-            Id: $scope.itineraryDestination,
-            passengerName: $scope.itineraryPurpose,
-            pickupLocation: new Date($scope.itineraryStartDate),
-            vehicleId: new Date($scope.itineraryEndDate)
+            bookingsPassenger: $scope.booking.CurrentPassenger,
+            bookingsDropOff: $scope.booking.DropOffLocation,
+            bookingsPasName: $scope.booking.PassengerName,
+            bookingsPickup: $scope.booking.PickupLocation,
+            bookingsVehicle: $scope.booking.VehicleId,
         };
-        $scope.itineraries.push($scope.itineraryDetails)      
+        $scope.booking.push($scope.bookingDetails)      
+    };
+
+    $scope.cancelAdd = function () {
+        $scope.changeView(viewBookings)
     };
 
     $scope.editBook = function (bookings) {
 
     };
 
+    
     $scope.deleteBook = function (bookings) {
         var bookingToDel = $scope.booking.indexOf(bookings);
         $scope.booking.splice(bookingToDel, 1); //Remove 1 item @ index

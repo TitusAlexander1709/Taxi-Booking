@@ -74,16 +74,14 @@
     <div ng-show="addBookings">
         <h2>Add Bookings</h2>
         <p>Add a new booking to the system below:</p>
-
-        <p>Itinerary Name:  <input type="text" ng-model="itineraryName" /> </p>
-        <p>Destination <input type="text" ng-model="itineraryDestination"></p>
-        <p>Purpose <input type="text" ng-model="itineraryPurpose"></p>
-        <p>Start Date <input type="text" ng-model="itineraryStartDate "></p>
-        <p>End Date <input type="text" ng-model="itineraryEndDate"></p>
+        <p>Number of Passengers:  <input type="text" ng-model="bookingsPassenger" /> </p>
+        <p>Drop Off Location: <input type="text" ng-model="bookingsDropOff"/></p>
+        <p>Passenger Name: <input type="text" ng-model="bookingsPasName"/></p>
+        <p>Pickup Location: <input type="text" ng-model="bookingsPickup "/></p>
+        <p>Vehicle ID: <input type="text" ng-model="bookingsVehicle"/></p>
 
         <button ng-click="addBooking()">Add</button>
-        <button ng-click="cancelAddition()">Cancel</button>
-        <div class=""><img src="" class="" /></div>
+        <button ng-click="cancelAdd()">Cancel</button>        
     </div>
 
 
