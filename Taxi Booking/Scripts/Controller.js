@@ -28,17 +28,25 @@
 
     $scope.initialise();
 
+    //Adding a booking
     $scope.addBooking = function () {
         var bookingDetails = {
             bookingsPassenger: $scope.CurrentPassenger,
             bookingsDropOff: $scope.DropOffLocation,
-            bookingsId: $scope.Id,
             bookingsPasName: $scope.PassengerName,
             bookingsPickup: $scope.PickupLocation,
             bookingsVehicle: $scope.VehicleId
         };
-        $scope.booking.push($scope.bookingDetails)
-        $scope.changeView('viewBookings')
+        $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/", bookingDetails)
+            .success(function () {
+                $scope.initialise();
+                $scope.changeView('viewBookings');
+            })
+            .error(function (error) {
+                $scope.errorMessage = error; // create error message view
+
+            });
+        
     };
 
     $scope.cancelAdd = function () {
@@ -50,9 +58,16 @@
     };
 
     
-    $scope.deleteBook = function (bookings) {
-        var bookingToDel = $scope.booking.indexOf(bookings);
-        $scope.booking.splice(bookingToDel, 1); //Remove 1 item @ index
+    $scope.deleteBook = function (id) {
+        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking" + "/" + id)
+            .success(function () {
+                $scope.initialise();
+                $scope.changeView('viewBookings');
+            })
+            .error(function (error) {
+                $scope.errorMessage = error; // create error message view
+
+            });
     };
 
 
