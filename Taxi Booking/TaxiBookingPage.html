@@ -15,16 +15,16 @@
     <div class="navbar">
         <nav class="navbar navbar-expand-sm bg-light navbar-light">
             <ul class="navbar-nav">
-                <li class="nav-item active" ng-click="changeView(viewBookings)" ng-model="btnViewBookings">
+                <li class="nav-item active" ng-click="changeView('viewBookings')" ng-model="btnViewBookings">
                     <a class="nav-link" href="#">View Bookings</a>
                 </li>
-                <li class="nav-item" ng-click="changeView(addBookings)" ng-model="btnAddBookings">
+                <li class="nav-item" ng-click="changeView('addBookings')" ng-model="btnAddBookings">
                     <a class="nav-link" href="#">Add Bookings</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" ng-click="changeView('viewRoutes')" ng-model="btnViewRoutes">
                     <a class="nav-link" href="#">View Routes</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" ng-click="changeView('viewVehicles')" ng-model="btnViewVehicles">
                     <a class="nav-link" href="#">View Vehicles</a>
                 </li>
                 <li class="nav-item">
@@ -35,19 +35,74 @@
         </nav>
     </div>
     <h1>Booking System</h1>
-    <button ng-click="init()">Initialise</button>
+
+
+    <!--VIEW BOOKINGS-->
     <div ng-show="viewBookings">
         <form>
-            <p>Search for itineraries <input type="text" ng-model="tom"></p>
+            <p>Search for bookings: <input type="text" ng-model="bookingSearch"></p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Number of Current Passengers</th>
+                        <th>Drop Off Location</th>
+                        <th>ID</th>
+                        <th>Passenger Name</th>
+                        <th>Pickup Location</th>
+                        <th>VehicleID</th>
+                        <th>Edit Booking</th>
+                        <th>Delete Booking</th>
+                    </tr>
+                    <tr ng-repeat="bookings in booking | filter:bookingSearch">
+                        <td>{{bookings.CurrentPassenger}}</td>
+                        <td>{{bookings.DropOffLocation}}</td>
+                        <td>{{bookings.Id}}</td>
+                        <td>{{bookings.PassengerName}}</td>
+                        <td>{{bookings.PickupLocation}}</td>
+                        <td>{{bookings.VehicleId}}</td>
+                        <td><a href="" ng-click="editBook(bookings)">Edit Booking</a></td>
+                        <td><a href="" ng-click="deleteBook(bookings)">Delete Booking</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+
         </form>
     </div>
+
+    <!--ADD BOOKINGS-->
     <div ng-show="addBookings">
-        <form>
-            <p>Add Bookings</p>
-        </form>
+        <h2>Add Bookings</h2>
+        <p>Add a new booking to the system below:</p>
+
+        <p>Itinerary Name:  <input type="text" ng-model="itineraryName" /> </p>
+        <p>Destination <input type="text" ng-model="itineraryDestination"></p>
+        <p>Purpose <input type="text" ng-model="itineraryPurpose"></p>
+        <p>Start Date <input type="text" ng-model="itineraryStartDate "></p>
+        <p>End Date <input type="text" ng-model="itineraryEndDate"></p>
+
+        <button ng-click="addBooking()">Add</button>
+        <button ng-click="cancelAddition()">Cancel</button>
+        <div class=""><img src="" class="" /></div>
     </div>
 
 
+
+    <div ng-show="viewRoutes">
+        <form>
+            <p>view routes</p>
+        </form>
+    </div>
+    <div ng-show="viewVehicles">
+        <form>
+            <p>Add vehicles</p>
+        </form>
+    </div>
+    <div ng-show="viewBookEdit">
+        <form>
+            <p>Edit existing bookings</p>
+        </form>
+    </div>
 
 
 
@@ -58,7 +113,7 @@
 
 
     <script src="Scripts/taxiApp.js"></script>
-    
+
     <script src="Scripts/Module.js"></script>
     <script src="Scripts/Controller.js"></script>
 
