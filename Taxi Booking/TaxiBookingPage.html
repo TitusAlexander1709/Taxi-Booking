@@ -60,7 +60,7 @@
                         <td>{{bookings.PassengerName}}</td>
                         <td>{{bookings.PickupLocation}}</td>
                         <td>{{bookings.VehicleId}}</td>
-                        <td><a href="" ng-click="editBook(bookings)">Edit Booking</a></td>
+                        <td><a href="" ng-click="showBookEdit(bookings.Id)">Edit Booking</a></td>
                         <td><a href="" ng-click="deleteBook(bookings)">Delete Booking</a></td>
                     </tr>
                 </tbody>
@@ -84,7 +84,7 @@
         <button ng-click="addBooking()">Add</button>
         <button ng-click="cancelAddition()">Cancel</button>
         <div class=""><img src="" class="" /></div>
-    </div>
+  </div>
 
 
 
@@ -98,11 +98,41 @@
             <p>Add vehicles</p>
         </form>
     </div>
-    <div ng-show="viewBookEdit">
+
+    <div ng-show="viewEditBookings">
         <form>
-            <p>Edit existing bookings</p>
-        </form>
+            <table>
+                <tr>
+                    <td>CurrentPassenger:</td>
+                    <td><input ng-model="editCurrentPassenger" /></td>
+                </tr>
+                <tr>
+                    <td>DropOffLocation:</td>
+                    <td><input ng-model="editBookingDropOff" /></td>
+                </tr>
+                <tr>
+                    <td>Id:</td>
+                    <td><input ng-model="editPassengerName" /></td>
+                </tr>
+                <tr>
+                    <td>PassengerName:</td>
+                    <td><input type="date" ng-model="editPassengerName" /></td>
+                </tr>
+                <tr>
+                    <td>PickupLocation:</td>
+                    <td><input type="date" ng-model="editPickupLocation" /></td>
+                </tr>
+                <tr>
+                    <td>VehicleId:</td>
+                    <td><input type="date" ng-model="editVehicleId" /></td>
+                </tr>
+            </table>
+
+            <button ng-click="editedBook()">Edit</button>
+            <button ng-click="cancelEdit()">Cancel</button>
+            </form>
     </div>
+    
 
 
 
