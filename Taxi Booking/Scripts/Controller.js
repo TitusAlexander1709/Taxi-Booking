@@ -30,17 +30,19 @@
 
     $scope.addBooking = function () {
         var bookingDetails = {
-            bookingsPassenger: $scope.booking.CurrentPassenger,
-            bookingsDropOff: $scope.booking.DropOffLocation,
-            bookingsPasName: $scope.booking.PassengerName,
-            bookingsPickup: $scope.booking.PickupLocation,
-            bookingsVehicle: $scope.booking.VehicleId,
+            bookingsPassenger: $scope.CurrentPassenger,
+            bookingsDropOff: $scope.DropOffLocation,
+            bookingsId: $scope.Id,
+            bookingsPasName: $scope.PassengerName,
+            bookingsPickup: $scope.PickupLocation,
+            bookingsVehicle: $scope.VehicleId
         };
-        $scope.booking.push($scope.bookingDetails)      
+        $scope.booking.push($scope.bookingDetails)
+        $scope.changeView('viewBookings')
     };
 
     $scope.cancelAdd = function () {
-        $scope.changeView(viewBookings)
+        $scope.changeView('viewBookings')
     };
 
     $scope.editBook = function (bookings) {
