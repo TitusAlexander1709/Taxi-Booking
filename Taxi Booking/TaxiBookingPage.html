@@ -60,14 +60,26 @@
                         <td>{{bookings.PassengerName}}</td>
                         <td>{{bookings.PickupLocation}}</td>
                         <td>{{bookings.VehicleId}}</td>
-                        <td><a href="" ng-click="editBook(bookings)">Edit Booking</a></td>
+                        <td><a href="" ng-click="editBook(bookings.Id)">Edit Booking</a></td>
                         <td><a href="" ng-click="deleteBook(bookings.Id)">Delete Booking</a></td>
                     </tr>
                 </tbody>
             </table>
-
-
         </form>
+    </div>
+
+    <!--EDIT A SELECTED BOOKING-->
+    <div ng-show="editBooking">
+        <h2>Add Bookings</h2>
+        <p>Edit the booking using the fields below, then click submit:</p>
+        <p>Number of Passengers:  <input type="text" ng-model="bookingsPassenger" /> {{editBookingDetails.bookingsCurrentPassenger}} </p>
+        <p>Drop off location:  <input type="text" ng-model="bookingsDropOff" /> {{editBookingDetails.bookingsDropOff}} </p>
+        <p>Passenger Name: <input type="text" ng-model="bookingsPasName" /> {{editBookingDetails.bookingsPasName}}</p>
+        <p>Pickup Location: <input type="text" ng-model="bookingsPickup " />{{editBookingDetails.bookingsPickup}}</p>
+        <p>Vehicle ID: <input type="text" ng-model="bookingsVehicle" />{{editBookingDetails.bookingsVehicle}}</p>
+
+        <button ng-click="closeEdit(true)">Submit</button>
+        <button ng-click="closeEdit(false)">Cancel</button>
     </div>
 
     <!--ADD BOOKINGS-->
@@ -86,6 +98,8 @@
 
 
     <!--VIEW ROUTES-->
+    <!--FIND OUT JSON DATA FORMAT !!!!!!!!!!!!-->
+    <h2>View Current Existing Routes</h2>
     <div ng-show="viewRoutes">
         <form>
             <p>Search for routes: <input type="text" ng-model="routesSearch"></p>
@@ -101,15 +115,15 @@
                         <th>Edit Booking</th>
                         <th>Delete Booking</th>
                     </tr>
-                    <tr ng-repeat="bookings in booking | filter:bookingSearch">
+                    <tr ng-repeat="routes in route | filter:routesSearch">
                         <td>{{}}</td>
                         <td>{{}}</td>
                         <td>{{}}</td>
                         <td>{{}}</td>
                         <td>{{}}</td>
                         <td>{{}}</td>
-                        <td><a href="" ng-click="editBook(bookings)">Edit Booking</a></td>
-                        <td><a href="" ng-click="deleteBook(bookings.Id)">Delete Booking</a></td>
+                        <td><a href="" ng-click="editRoute(routes.Id)">Edit Booking</a></td>
+                        <td><a href="" ng-click="deleteRoute(routes.Id)">Delete Booking</a></td>
                     </tr>
                 </tbody>
             </table>
