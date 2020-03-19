@@ -69,14 +69,14 @@
     </div>
 
     <!--EDIT A SELECTED BOOKING-->
-    <div ng-show="editBooking">
+    <div ng-show="editBookings">
         <h2>Add Bookings</h2>
         <p>Edit the booking using the fields below, then click submit:</p>
-        <p>Number of Passengers:  <input type="text" ng-model="bookingsPassenger" /> {{editBookingDetails.bookingsCurrentPassenger}} </p>
-        <p>Drop off location:  <input type="text" ng-model="bookingsDropOff" /> {{editBookingDetails.bookingsDropOff}} </p>
-        <p>Passenger Name: <input type="text" ng-model="bookingsPasName" /> {{editBookingDetails.bookingsPasName}}</p>
-        <p>Pickup Location: <input type="text" ng-model="bookingsPickup " />{{editBookingDetails.bookingsPickup}}</p>
-        <p>Vehicle ID: <input type="text" ng-model="bookingsVehicle" />{{editBookingDetails.bookingsVehicle}}</p>
+        <p>Number of Passengers:  <input type="text" ng-model="editCurrentPassenger" /> </p>
+        <p>Drop off location:  <input type="text" ng-model="editDropOffLocation" /> </p>
+        <p>Passenger Name: <input type="text" ng-model="editPassengerName" /> </p>
+        <p>Pickup Location: <input type="text" ng-model="editPickupLocation " /> </p>
+        <p>Vehicle ID: <input type="text" ng-model="editVehicleId" /> </p>
 
         <button ng-click="closeEdit(true)">Submit</button>
         <button ng-click="closeEdit(false)">Cancel</button>
@@ -139,11 +139,6 @@
     <div ng-show="viewVehicles">
         <form>
             <p>Add vehicles</p>
-        </form>
-    </div>
-    <div ng-show="viewBookEdit">
-        <form>
-            <p>Edit existing bookings</p>
         </form>
     </div>
 
