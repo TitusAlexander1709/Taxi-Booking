@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="Styles/styles.css">
 
-
     <title>Taxi Booking Service</title>
 </head>
 
@@ -24,8 +23,14 @@
                 <li class="nav-item" ng-click="changeView('viewRoutes')" ng-model="btnViewRoutes">
                     <a class="nav-link" href="#">View Routes</a>
                 </li>
+                <li class="nav-item" ng-click="changeView('addRoutes')" ng-model="btnAddRoutes">
+                    <a class="nav-link" href="#">Add Routes</a>
+                </li>
                 <li class="nav-item" ng-click="changeView('viewVehicles')" ng-model="btnViewVehicles">
                     <a class="nav-link" href="#">View Vehicles</a>
+                </li>
+                <li class="nav-item" ng-click="changeView('addVehicles')" ng-model="btnAddVehicles">
+                    <a class="nav-link" href="#">Add Vehicles</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Logout</a>
@@ -34,8 +39,8 @@
             </ul>
         </nav>
     </div>
-    <h1>Booking System</h1>
 
+    <h1>Booking System</h1>
 
     <!--VIEW BOOKINGS-->
     <div ng-show="viewBookings">
@@ -44,19 +49,20 @@
             <table>
                 <tbody>
                     <tr>
+                        <th>ID</th>
                         <th>Number of Current Passengers</th>
                         <th>Drop Off Location</th>
-                        <th>ID</th>
                         <th>Passenger Name</th>
                         <th>Pickup Location</th>
                         <th>VehicleID</th>
                         <th>Edit Booking</th>
                         <th>Delete Booking</th>
                     </tr>
+
                     <tr ng-repeat="bookings in booking | filter:bookingSearch">
+                        <td>{{bookings.Id}}</td>
                         <td>{{bookings.CurrentPassenger}}</td>
                         <td>{{bookings.DropOffLocation}}</td>
-                        <td>{{bookings.Id}}</td>
                         <td>{{bookings.PassengerName}}</td>
                         <td>{{bookings.PickupLocation}}</td>
                         <td>{{bookings.VehicleId}}</td>
@@ -70,7 +76,7 @@
 
     <!--EDIT A SELECTED BOOKING-->
     <div ng-show="editBookings">
-        <h2>Add Bookings</h2>
+        <h2>Edit Bookings</h2>
         <p>Edit the booking using the fields below, then click submit:</p>
         <p>Number of Passengers:  <input type="text" ng-model="editCurrentPassenger" /> </p>
         <p>Drop off location:  <input type="text" ng-model="editDropOffLocation" /> </p>
@@ -93,53 +99,112 @@
         <p>Vehicle ID: <input type="text" ng-model="bookingsVehicle" /></p>
 
         <button ng-click="addBooking()">Add</button>
-        <button ng-click="cancelAdd()">Cancel</button>
+        <button ng-click="cancelBookingAdd()">Cancel</button>
     </div>
 
-
     <!--VIEW ROUTES-->
-    <!--FIND OUT JSON DATA FORMAT !!!!!!!!!!!!-->
-    <h2>View Current Existing Routes</h2>
     <div ng-show="viewRoutes">
+        <h2>View Current Existing Routes</h2>
         <form>
             <p>Search for routes: <input type="text" ng-model="routesSearch"></p>
             <table>
                 <tbody>
                     <tr>
-                        <th>Number of Current Passengers</th>
-                        <th>Drop Off Location</th>
                         <th>ID</th>
-                        <th>Passenger Name</th>
-                        <th>Pickup Location</th>
-                        <th>VehicleID</th>
-                        <th>Edit Booking</th>
-                        <th>Delete Booking</th>
+                        <th>Route End Point</th>
+                        <th>Route Start Point</th>
+                        <th>Edit Route</th>
+                        <th>Delete Route</th>
                     </tr>
                     <tr ng-repeat="routes in route | filter:routesSearch">
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
-                        <td>{{}}</td>
+                        <td>{{routes.Id}}</td>
+                        <td>{{routes.RouteEndPoint}}</td>
+                        <td>{{routes.RouteStartPoint}}</td>
                         <td><a href="" ng-click="editRoute(routes.Id)">Edit Booking</a></td>
                         <td><a href="" ng-click="deleteRoute(routes.Id)">Delete Booking</a></td>
                     </tr>
                 </tbody>
             </table>
-
-
         </form>
 
+        <!--Edit ROUTES-->
+        <div ng-show="editRoutes">
+            <h2>Edit Routes</h2>
+            <p>Edit the Routes using the fields below, then click submit:</p>
+            <p>Route End Point: <input type="text" ng-model="editRouteEndPoint" /> </p>
+            <p>Route Start Point: <input type="text" ng-model="editRouteStartPoint" /> </p>
+            <button ng-click="closeRouteEdit(true)">Submit</button>
+            <button ng-click="closeRouteEdit(false)">Cancel</button>
+        </div>
 
+        <div ng-show="addRoutes">
+            <h2>Add Route</h2>
+            <p>Add a new Route to the system below:</p>
+            <p>RouteEndPoint:  <input type="text" ng-model="routesRouteStartPoint" /> </p>
+            <p>RouteStartPoint:  <input type="text" ng-model="routesRouteStartPoint" /> </p>
 
+            <button ng-click="addRoute()">Add</button>
+            <button ng-click="cancelRouteAdd()">Cancel</button>
+        </div>
 
 
     </div>
+
+
     <div ng-show="viewVehicles">
+        <h2>View Current Existing Vehicles</h2>
         <form>
-            <p>Add vehicles</p>
+            <p>Search for Vehicles: <input type="text" ng-model="vehiclesSearch"></p>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <th>Capacity</th>
+                        <th>Driver</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Registration</th>
+                        <th>Edit Route</th>
+                        <th>Delete Route</th>
+                    </tr>
+                    <tr ng-repeat="vehicles in vehicle | filter:vehiclesSearch">
+                        <td>{{vehicles.Id}}</td>
+                        <td>{{vehicles.Capacity}}</td>
+                        <td>{{vehicles.Driver}}</td>
+                        <td>{{vehicles.Make}}</td>
+                        <td>{{vehicles.Model}}</td>
+                        <td>{{vehicles.Registration}}</td>
+                        <td><a href="" ng-click="editVehicle(vehicles.Id)">Edit Vehicle</a></td>
+                        <td><a href="" ng-click="deleteVehicle(vehicles.Id)">Delete Vehicle</a></td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
+    </div>
+
+    <div ng-show="editVehicles">
+        <h2>Edit Vehicles</h2>
+        <p>Edit the cehicles using the fields below, then click submit:</p>
+        <p>Capacity:  <input type="text" ng-model="editCapacity" /> </p>
+        <p>Driver:  <input type="text" ng-model="editDriver" /> </p>
+        <p>Make: <input type="text" ng-model="editMake" /> </p>
+        <p>Model: <input type="text" ng-model="editModel " /> </p>
+        <p>Registration: <input type="text" ng-model="editRegistration" /> </p>
+
+        <button ng-click="closeVehicleEdit(true)">Submit</button>
+        <button ng-click="closeVehicleEdit(false)">Cancel</button>
+    </div>
+
+    <div ng-show="addVehicles">
+        <h2>Add Vehicles</h2>
+        <p>Add a new Vehicle to the system below:</p>
+        <p>Capacity:  <input type="text" ng-model="vehiclesCapacity" /> </p>
+        <p>Driver:  <input type="text" ng-model="vehiclesDriver" /> </p>
+        <p>Make: <input type="text" ng-model="vehiclesMake" /></p>
+        <p>Model: <input type="text" ng-model="vehiclesModel " /></p>
+        <p>Registration: <input type="text" ng-model="vehiclesRegistration" /></p>
+        <button ng-click="addVehicle()">Add</button>
+        <button ng-click="cancelVechicleAdd()">Cancel</button>
     </div>
 
 
