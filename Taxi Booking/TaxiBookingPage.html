@@ -127,29 +127,30 @@
             </table>
         </form>
 
-        <!--Edit ROUTES-->
-        <div ng-show="editRoutes">
-            <h2>Edit Routes</h2>
-            <p>Edit the Routes using the fields below, then click submit:</p>
-            <p>Route End Point: <input type="text" ng-model="editRouteEndPoint" /> </p>
-            <p>Route Start Point: <input type="text" ng-model="editRouteStartPoint" /> </p>
-            <button ng-click="closeRouteEdit(true)">Submit</button>
-            <button ng-click="closeRouteEdit(false)">Cancel</button>
-        </div>
-
-        <div ng-show="addRoutes">
-            <h2>Add Route</h2>
-            <p>Add a new Route to the system below:</p>
-            <p>RouteEndPoint:  <input type="text" ng-model="routesRouteStartPoint" /> </p>
-            <p>RouteStartPoint:  <input type="text" ng-model="routesRouteStartPoint" /> </p>
-
-            <button ng-click="addRoute()">Add</button>
-            <button ng-click="cancelRouteAdd()">Cancel</button>
-        </div>
-
 
     </div>
 
+    <!--Edit ROUTES-->
+    <div ng-show="editRoutes">
+        <h2>Edit Routes</h2>
+        <p>Edit the Routes using the fields below, then click submit:</p>
+        <p>Route End Point: <input type="text" ng-model="editRouteEndPoint" /> </p>
+        <p>Route Start Point: <input type="text" ng-model="editRouteStartPoint" /> </p>
+
+        <button ng-click="closeRouteEdit(true)">Submit</button>
+        <button ng-click="closeRouteEdit(false)">Cancel</button>
+    </div>
+
+    <!--Add Routes-->
+    <div ng-show="addRoutes">
+        <h2>Add Route</h2>
+        <p>Add a new Route to the system below:</p>
+        <p>RouteEndPoint:  <input type="text" ng-model="routesRouteStartPoint" /> </p>
+        <p>RouteStartPoint:  <input type="text" ng-model="routesRouteStartPoint" /> </p>
+
+        <button ng-click="addRoute()">Add</button>
+        <button ng-click="cancelRouteAdd()">Cancel</button>
+    </div>
 
     <div ng-show="viewVehicles">
         <h2>View Current Existing Vehicles</h2>
@@ -203,6 +204,7 @@
         <p>Make: <input type="text" ng-model="vehiclesMake" /></p>
         <p>Model: <input type="text" ng-model="vehiclesModel " /></p>
         <p>Registration: <input type="text" ng-model="vehiclesRegistration" /></p>
+
         <button ng-click="addVehicle()">Add</button>
         <button ng-click="cancelVechicleAdd()">Cancel</button>
     </div>

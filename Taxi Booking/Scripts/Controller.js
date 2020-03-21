@@ -13,6 +13,7 @@
         $scope.editRoutes - false;
         $scope.editVehicles = false;
 
+        //Potentially cleaner version of above but need to test further
         //$scope.viewBookings =  $scope.addBookings = $scope.viewRoutes = $scope.viewVehicles = false;
        
         $scope[view]  = true;
@@ -34,7 +35,7 @@
                 $scope.route = response;
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error;
 
             });
 
@@ -43,7 +44,7 @@
                 $scope.vehicle = response;
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error; 
 
             });
 
@@ -87,7 +88,7 @@
                 $scope.changeView('viewRoutes');
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error; 
 
             });
 
@@ -119,6 +120,7 @@
     //End of Adding a Route
 
     //Cancel Function for Adding Booking
+    //As each cancel function currently does one thing (change view), it would be more efficient to simply call the change view function and do away with separate cancel functions
     $scope.cancelBookingAdd = function () {
         $scope.changeView('viewBookings')
     };
@@ -135,12 +137,11 @@
 
 
     //Beginning of editing Bookings - Mostly Works apart from the Passanger Name not updating for some reason. 
-    //Show the edit view. Get the specific booking to edit through params, and then display in labels on html form.
     $scope.editBook = function (id) {
         $scope.changeView('editBookings');
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/" + id)
             .success(function (response) {
-                bookID = id;
+                bookID = id; // is this needed/in correct format?
                 $scope.editCurrentPassenger = response.CurrentPassenger;
                 $scope.editDropOffLocation = response.DropOffLocation;
                 $scope.editPassengerName = response.PassengerName;
@@ -159,7 +160,7 @@
         if (submit) {
             //Save user input and send to the REST API. scope.names may need changing if they cause conflict with add/other same name variables
             var editbookingDetails = {
-                Id: bookID,
+                Id: bookID,//Again, is this needed?
                 CurrentPassenger: $scope.editCurrentPassenger,
                 DropOffLocation: $scope.editDropOffLocation,
                 PassengerName: $scope.editPassengerName,
@@ -179,9 +180,10 @@
             $scope.initialise();
         }
         $scope.changeView('viewBookings'); //May neeed to change position
-        $scope.editBookings - false;
+        $scope.editBookings = false; // Would be more efficient to leave this here as this is the only place it is relevant, rather than running this EVERY time the changeView function is used
     };
     //End of editing Bookings
+
 
     // Delete a booking from list
     $scope.deleteBook = function (id) {
@@ -232,7 +234,8 @@
         else {
             $scope.initialise();
         }
-        $scope.changeView('viewRoutes'); //May neeed to change position
+        $scope.changeView('viewRoutes'); 
+        $scope.editRoutes = false;
     };
 
     //Delete Routes
