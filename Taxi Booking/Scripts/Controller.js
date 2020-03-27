@@ -54,6 +54,7 @@
 
     //Adding a Booking - Works
     $scope.addBooking = function () {
+        $scope.editBookingsForm.$setPristine();
         var bookingDetails = {
             CurrentPassenger: $scope.bookingsPassenger,
             DropOffLocation: $scope.bookingsDropOff,
@@ -75,11 +76,10 @@
     //End of Adding a Booking
 
 
-    //Adding a Route - DOES NOT WORK - I cant seem to get this or Route Edit to work at all even though Booking Add/Vehicle Add work fine and Vehicle Edit and Booking Edit work correctly. 
-    //Please look into it because I just cant get it to work sadly.
+    //Adding a Route - Works Now Thnx
     $scope.addRoute = function () {
         var routeDetails = {
-            RouteEndPoint: $scope.routesRouteStartPoint,
+            RouteEndPoint: $scope.routesRouteEndPoint,
             RouteStartPoint: $scope.routesRouteStartPoint
         };
         $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/route/", routeDetails)
@@ -142,9 +142,9 @@
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/" + id)
             .success(function (response) {
                 bookID = id; // is this needed/in correct format?
+                $scope.editPassengerName = response.PassengerName;
                 $scope.editCurrentPassenger = response.CurrentPassenger;
                 $scope.editDropOffLocation = response.DropOffLocation;
-                $scope.editPassengerName = response.PassengerName;
                 $scope.editPickupLocation = response.PickupLocation;
                 $scope.editVehicleId = response.VehicleId;
 
@@ -161,9 +161,9 @@
             //Save user input and send to the REST API. scope.names may need changing if they cause conflict with add/other same name variables
             var editbookingDetails = {
                 Id: bookID,//Again, is this needed?
+                PassengerName: $scope.editPassengerName,
                 CurrentPassenger: $scope.editCurrentPassenger,
                 DropOffLocation: $scope.editDropOffLocation,
-                PassengerName: $scope.editPassengerName,
                 PickupLocation: $scope.editPickupLocation,
                 VehicleId: $scope.editVehicleId
             };
