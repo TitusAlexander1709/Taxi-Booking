@@ -41,6 +41,19 @@
     </div>
 
     <h1>Booking System</h1>
+    <div ng-show="viewLogin">
+        <h2>Login</h2>
+        <p>Please login below with your credentials to access the system</p>
+
+        <form name= "loginForm">
+            Enter Username
+            <input name="username" type="text" ng-model="usernameEntry" /> <br />
+            Enter Password
+            <input name="password" type="password" ng-model="passwordEntry" />
+            <button ng-click="login()">Login</button>
+        </form>
+    </div>
+
 
     <!--VIEW BOOKINGS-->
     <div ng-show="viewBookings">

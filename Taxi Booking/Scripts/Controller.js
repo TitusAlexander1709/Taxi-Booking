@@ -1,6 +1,16 @@
 ﻿angular.module("taxiBookingApp").controller("taxiBookingController", function ($scope, $http) {
+    //TO DO
+    // Verify if logged in user is staff or manager before allowing them to edit certain things - TITUS
+    // CSS (at least 10 selectors used)
+    // check if login actually works. dont we need a get request+if statement to verify username?
+    // bootstrap
+    // User input validation using Angular Directives - TITUS
+    // Clean up and refactor code & file structure
 
-    
+
+
+    //Login page is only view displayed until user succesfully enters a valid usernae/password
+    $scope.viewLogin = true; // !May need moving!
 
     $scope.changeView = function (view) { 
         $scope.viewBookings = false;
@@ -15,12 +25,52 @@
 
         //Potentially cleaner version of above but need to test further
         //$scope.viewBookings =  $scope.addBookings = $scope.viewRoutes = $scope.viewVehicles = false;
-       
-        $scope[view]  = true;
+
+        /* The following checks if the user is attempting to view a manager-only section,
+         and will then check whether they are signed in as such before opening that view.
+         (Cant remember which views were manager only)
+         Initially had this as a switch case, but it was less efficient
+        
+        */
+        if (view == 'editRoutes' || view == 'addVehicles') {
+            if ($scope.role == 'Manager') {
+                $scope[view] = true;
+            }
+            else {
+                $scope.errorMessage = "You must be signed in as a manager to view this";
+            };
+        }
+        else {
+            $scope[view] = true;
+        };
+
+        //Old code. less efficient but looks nice. might need it.
+       /* switch (view) {
+            case 'editRoutes':
+                if ($scope.role == 'Manager') {
+                    $scope[view] = true;
+                }
+                else {
+                    $scope.errorMessage = "You must be signed in as a manager to view this";
+                }
+            break;
+            case 'addVehicles':
+                if ($scope.role == 'Manager') {
+                    $scope[view] = true;
+                }
+                else {
+                    $scope.errorMessage = "You must be signed in as a manager to view this";
+                }
+            break;
+            default:
+                $scope[view] = true; }*/
+             
     };
 
 
     $scope.initialise = function () {
+        $scope.viewLogin = false;
+
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking") //bookings REST API
             .success(function (response) {
                 $scope.booking = response;
@@ -68,10 +118,8 @@
                 $scope.changeView('viewBookings');
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
-
-            });
-        
+                $scope.errorMessage = error; 
+            });      
     };
     //End of Adding a Booking
 
@@ -150,10 +198,12 @@
 
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error;
 
             });
     };
+
+
 
     // Submit or Cancel booking edit
     $scope.closeEdit = function (submit) {
@@ -173,7 +223,7 @@
                     
                 })
                 .error(function (error) {
-                    $scope.errorMessage = error; // create error message view.
+                    $scope.errorMessage = error;
                 });
         }
         else {
@@ -193,7 +243,7 @@
                 $scope.changeView('viewBookings');
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error;
 
             });
     };
@@ -209,10 +259,11 @@
                 $scope.editRouteStartPoint = response.RouteStartPoint;
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error; 
 
             });
     };
+
 
     // Submit or Cancel Route edit
     $scope.closeRouteEdit = function (submit) {
@@ -246,7 +297,7 @@
                 $scope.changeView('viewRoutes');
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error; 
 
             });
 
@@ -314,6 +365,29 @@
 
     };
 
-    
+    $scope.authenticated = false;
+    $scope.name = "";
+    $scope.role = "";
+
+    $scope.login = function () {
+        var authenticationDetails = {
+            username: $scope.usernameEntry,
+            password: $scope.passwordEntry
+        }
+        $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
+            .success(function (response) {
+                $scope.initialise();
+                $scope.authenticated = true;
+                $scope.role = response.Role; // Need to check the JSON file attribute names
+                $scope.name = response.Name
+            })
+            .error(function (error) {
+                $scope.errorMessage = error;
+
+            });
+
+    };
+
+
 
 });
