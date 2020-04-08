@@ -1,172 +1,248 @@
 ﻿<!DOCTYPE html>
+<!--This whole HTML document uses the AngularJS file taxiBookingApp-->
 <html ng-app="taxiBookingApp">
 <head>
     <meta charset="utf-8" />
+    <!--Using BootStrap to define viewport and dynamic scaling-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--Calling External Angular JS Libary-->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <!--Calling External BootStrap CSS Libary-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Calling Local CSS Libary-->
     <link rel="stylesheet" type="text/css" href="Styles/styles.css">
 
-    <title>Taxi Booking Service</title>
+    <title>National Car Pool Booking System</title>
 </head>
 
+<!--Navbar-->
 <body ng-controller="taxiBookingController">
+    <!--The Body of the HTML document uses the AngularJS file taxiBookingController-->
     <div class="navbar">
-        <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <ul class="navbar-nav">
-                <li class="nav-item active" ng-click="changeView('viewBookings')" ng-model="btnViewBookings">
-                    <a class="nav-link" href="#">View Bookings</a>
-                </li>
-                <li class="nav-item" ng-click="changeView('addBookings')" ng-model="btnAddBookings">
-                    <a class="nav-link" href="#">Add Bookings</a>
-                </li>
-                <li class="nav-item" ng-click="changeView('viewRoutes')" ng-model="btnViewRoutes">
-                    <a class="nav-link" href="#">View Routes</a>
-                </li>
-                <li class="nav-item" ng-click="changeView('addRoutes')" ng-model="btnAddRoutes">
-                    <a class="nav-link" href="#">Add Routes</a>
-                </li>
-                <li class="nav-item" ng-click="changeView('viewVehicles')" ng-model="btnViewVehicles">
-                    <a class="nav-link" href="#">View Vehicles</a>
-                </li>
-                <li class="nav-item" ng-click="changeView('addVehicles')" ng-model="btnAddVehicles">
-                    <a class="nav-link" href="#">Add Vehicles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Logout</a>
-                </li>
-
-            </ul>
+        <nav class="navbar navbar-expand-sm fixed-top bg-dark navbar-dark">
+            <!--BootStrap Navbar ussing dark settings-->
+            <a class="navbar-brand">National Car Pool Company</a>
+            <img src="Images/WhiteCarLogo.png" width="50" height="50" class="d-inline-block align-top" alt="National Car Pool Logo"> <!--Uses bootstrap to add Company name and logo to navbar-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> <!--Uses bootstrap to make the navbar interactive as it will collapse and show a drop down button when the browser resolution is low-->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav"> <!--Navbar list and links. Links use ng-click to change view when they are clicked using the changeView method. -->
+                    <li class="nav-item" ng-click="changeView('viewBookings')" ng-model="btnViewBookings">
+                        <a class="nav-link" href="#">View Bookings</a>
+                    </li>
+                    <li class="nav-item" ng-click="changeView('addBookings')" ng-model="btnAddBookings">
+                        <a class="nav-link" href="#">Add Bookings</a>
+                    </li>
+                    <li class="nav-item" ng-click="changeView('viewRoutes')" ng-model="btnViewRoutes">
+                        <a class="nav-link" href="#">View Routes</a>
+                    </li>
+                    <li class="nav-item" ng-click="changeView('addRoutes')" ng-model="btnAddRoutes">
+                        <a class="nav-link" href="#">Add Routes</a>
+                    </li>
+                    <li class="nav-item" ng-click="changeView('viewVehicles')" ng-model="btnViewVehicles">
+                        <a class="nav-link" href="#">View Vehicles</a>
+                    </li>
+                    <li class="nav-item" ng-click="changeView('addVehicles')" ng-model="btnAddVehicles">
+                        <a class="nav-link" href="#">Add Vehicles</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </div>
+    <!--End of Navbar-->
+    <!--Log In Form-->
+    <div class="container">
+        <h2>Nation Car Pool Company Online Booking System</h2>
+        <div ng-show="viewLogin">
+            <p>This webpage is for authorised users of the Nation Car Pool Company only, if you found this page by mistake please go to our main website to start using our car pooling services!</p>
+            <h2>Login</h2>
+            <p>Please login below with your credentials to access the system</p>
 
-    <h1>Booking System</h1>
-    <div ng-show="viewLogin">
-        <h2>Login</h2>
-        <p>Please login below with your credentials to access the system</p>
-
-        <form name= "loginForm">
-            Enter Username
-            <input name="username" type="text" ng-model="usernameEntry" /> <br />
-            Enter Password
-            <input name="password" type="password" ng-model="passwordEntry" />
-            <button ng-click="login()">Login</button>
-        </form>
+            <form name="loginForm">
+                Enter Username
+                <input name="username" type="text" ng-model="usernameEntry" /> <br />
+                Enter Password
+                <input name="password" type="password" ng-model="passwordEntry" />
+                <button ng-click="login()">Login</button>
+            </form>
+        </div>
     </div>
-
-
-    <!--VIEW BOOKINGS-->
-    <div ng-show="viewBookings">
-        <form>
-            <p>Search for bookings: <input type="text" ng-model="bookingSearch"></p>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>ID</th>
-                        <th>Number of Current Passengers</th>
-                        <th>Drop Off Location</th>
-                        <th>Passenger Name</th>
-                        <th>Pickup Location</th>
-                        <th>VehicleID</th>
-                        <th>Edit Booking</th>
-                        <th>Delete Booking</th>
-                    </tr>
-
-                    <tr ng-repeat="bookings in booking | filter:bookingSearch">
-                        <td>{{bookings.Id}}</td>
-                        <td>{{bookings.CurrentPassenger}}</td>
-                        <td>{{bookings.DropOffLocation}}</td>
-                        <td>{{bookings.PassengerName}}</td>
-                        <td>{{bookings.PickupLocation}}</td>
-                        <td>{{bookings.VehicleId}}</td>
-                        <td><a href="" ng-click="editBook(bookings.Id)">Edit Booking</a></td>
-                        <td><a href="" ng-click="deleteBook(bookings.Id)">Delete Booking</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </form>
+    <!--End of Log In Form-->
+    <!--VIEW Booking-->
+    <div class="container">
+        <div ng-show="viewBookings">
+            <form>
+                <p>Search for bookings: <input type="text" ng-model="bookingSearch"></p> <!--Input box which lets user filter bookings using ng-model "bookingSearch"-->
+                <table class="table table-bordered table-dark">
+                    <!--Bootstrap table using dark theme-->
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Number of Current Passengers</th>
+                            <th scope="col">Drop Off Location</th>
+                            <th scope="col">Passenger Name</th>
+                            <th scope="col">Pickup Location</th>
+                            <th scope="col">VehicleID</th>
+                            <th style="color:darkorange;" scope="col">Edit Booking</th>
+                            <th style="color:darkred;" scope="col">Delete Booking</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--Uses the get request booking from the controller to repeat the bookings into a table-->
+                        <tr ng-repeat="bookings in booking | filter:bookingSearch">
+                            <td>{{bookings.Id}}</td>
+                            <td>{{bookings.CurrentPassenger}}</td>
+                            <td>{{bookings.DropOffLocation}}</td>
+                            <td>{{bookings.PassengerName}}</td>
+                            <td>{{bookings.PickupLocation}}</td>
+                            <td>{{bookings.VehicleId}}</td>
+                            <td><a href="" style="color:darkorange;" ng-click="editBook(bookings.Id)">Edit Booking</a></td> <!--Button that edits selected booking based on ID-->
+                            <td><a href="" style="color:darkred;" ng-click="deleteBook(bookings.Id)">Delete Booking</a></td> <!--Button that deletes selected booking based on ID-->
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
     </div>
+    <!--End of VIEW Booking-->
+    <!--EDIT Booking-->
+    <div class="container">
+        <div ng-show="editBookings">
+            <!--When clicked in the Navbar this view will show-->
+            <h2>Edit Bookings</h2>
+            <h4>Edit the booking using the fields below, then click submit:</h4>
 
-    <!--EDIT A SELECTED BOOKING-->
-    <div ng-show="editBookings">
-        <h2>Edit Bookings</h2>
-        <form name="editBookingsForm" novalidate>
-            <p>Edit the booking using the fields below, then click submit:</p>
+            <!--Bootstrap form for user input. Scales with different resolutions-->
+            <form name="editBookingsForm" novalidate>
 
-            <p>Number of Passengers:  <input name="numberOfPassengersFieldEdit" type="text" placeholder="Number of Passengers" ng-model="editCurrentPassenger" required ng-pattern='/^\d{1,10}$/' /> </p>
-            <div ng-show="editBookingsForm.numberOfPassengersFieldEdit.$invalid">
-                <span ng-show="editBookingsForm.numberOfPassengersFieldEdit.$error.required">Number of Passengers field is REQUIRED</span>
-                <span ng-show="editBookingsForm.numberOfPassengersFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter</span>
-            </div>
+                <div class="form-row">
+                    <!--Uses Bootstrap to create a form row. The following line controls the scaling grid. -->
+                    <div class="form-group col-md-6">
 
-            <p>Passenger Name:  <input name="passengerNameFieldEdit" type="text" placeholder="Passenger Name" ng-model="editPassengerName" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+                        <label>Number of Passengers: </label>
+                        <input name="numberOfPassengersFieldEdit" type="text" placeholder="Number of Passengers" class="form-control" ng-model="editCurrentPassenger" required ng-pattern='/^\d{1,10}$/' />
+                        <div ng-show="editBookingsForm.numberOfPassengersFieldEdit.$invalid">
+                            <small class="help-block" ng-show="editBookingsForm.numberOfPassengersFieldEdit.$error.required">Number of Passengers field is REQUIRED</small>
+                            <small class="help-block" ng-show="editBookingsForm.numberOfPassengersFieldEdit.$error.pattern">Please only enter Numerical characters in this field.</small>
+                        </div> <!--ng-pattern pattern uses regex to only accept numerical characters for the input box. If there are other characters there will be a message shown using ng-show. If there is nothing in the field ng-show will be used to show that the field is required-->
+                    </div>
 
-            <p>Drop Off Location:  <input name="dropOffFieldEdit" type="text" placeholder="Drop off Location" ng-model="editDropOffLocation" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
-            <div ng-show="editBookingsForm.dropOffFieldEdit.$invalid">
-                <span ng-show="editBookingsForm.dropOffFieldEdit.$error.required">Drop off location field is REQUIRED</span>
-                <span ng-show="editBookingsForm.dropOffFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
-            </div>
+                    <div class="form-group col-md-6">
+                        <label>Passenger Name: </label>
+                        <input name="passengerNameFieldEdit" type="text" placeholder="Passenger Name" class="form-control" ng-model="editPassengerName" required ng-pattern='/^[a-zA-Z .’-]+$/' /> <!--ng-pattern regex for alphabetical characters and some special characters-->
+                        <div ng-show="editBookingsForm.passengerNameFieldEdit.$invalid">
+                            <small class="help-block" ng-show="editBookingsForm.passengerNameFieldEdit.$error.required">Passenger Name field is REQUIRED</small>
+                            <small class="help-block" ng-show="editBookingsForm.passengerNameFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field.</small>
+                        </div>
+                    </div>
+                </div>
 
-            <p>Pickup Location: <input name="pickUpFieldEdit" type="text" placeholder="Pickup Location" ng-model="editPickupLocation" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
-            <div ng-show="editBookingsForm.pickUpFieldEdit.$invalid">
-                <span ng-show="editBookingsForm.pickUpFieldEdit.$error.required">Pickup Location field is REQUIRED</span>
-                <span ng-show="editBookingsForm.pickUpFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
-            </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Drop Off Location: </label>
+                        <input name="dropOffFieldEdit" type="text" placeholder="Drop off Location" class="form-control" ng-model="editDropOffLocation" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' />
+                        <div ng-show="editBookingsForm.dropOffFieldEdit.$invalid">
+                            <small class="help-block" ng-show="editBookingsForm.dropOffFieldEdit.$error.required">Drop off location field is REQUIRED</small>
+                            <small class="help-block" ng-show="editBookingsForm.dropOffFieldEdit.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</small>
+                        </div>
+                    </div>
 
-            <p>Vehicle ID: <input name="vehicleIdFieldEdit" type="text" placeholder="Vehicle ID" ng-model="editVehicleId" required ng-pattern='/^\d{1,10}$/' /> </p>
-            <div ng-show="editBookingsForm.vehicleIdFieldEdit.$invalid">
-                <span ng-show="editBookingsForm.vehicleIdFieldEdit.$error.required">Vehicle ID field is REQUIRED</span>
-                <span ng-show="editBookingsForm.vehicleIdFieldEdit.$error.pattern">Vehicle ID must be entered in the numerical form 0-9</span>
-            </div>
+                    <div class="form-group col-md-6">
+                        <label>Pickup Location: </label>
+                        <input name="pickUpFieldEdit" type="text" placeholder="Pickup Location" class="form-control" ng-model="editPickupLocation" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' />
+                        <div ng-show="editBookingsForm.pickUpFieldEdit.$invalid">
+                            <small class="help-block" ng-show="editBookingsForm.pickUpFieldEdit.$error.required">Pickup Location field is REQUIRED</small>
+                            <small class="help-block" ng-show="editBookingsForm.pickUpFieldEdit.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</small>
+                        </div>
+                    </div>
+                </div>
 
-            <button ng-disabled="editBookingsForm.$invalid" ng-click="closeEdit(true)">Submit</button>
-            <button ng-click="closeEdit(false)">Cancel</button>
-        </form>
+                <div class="form-group">
+                    <label>Vehicle ID: </label>
+                    <input name="vehicleIdFieldEdit" type="text" placeholder="Vehicle ID" class="form-control" ng-model="editVehicleId" required ng-pattern='/^\d{1,10}$/' />
+                    <div ng-show="editBookingsForm.vehicleIdFieldEdit.$invalid">
+                        <small class="help-block" ng-show="editBookingsForm.vehicleIdFieldEdit.$error.required">Vehicle ID field is REQUIRED</small>
+                        <small class="help-block" ng-show="editBookingsForm.vehicleIdFieldEdit.$error.pattern">Vehicle ID must be entered in the numerical form 0-9</small>
+                    </div>
+                </div>
+
+                <button class="buttonS" type="submit" ng-disabled="editBookingsForm.$invalid" ng-click="closeEdit(true)">Submit</button> <!--ng-disables is used to disable the button if it is invalid-->
+                <!--Once the button is pressed it will use a put request to update the REST service using the "closeEdit" function in the controller-->
+                <button class="buttonclose" ng-click="closeEdit(false)">Cancel</button> <!--Cancels the edit using if the user clicks the close button as part of the else statement in "closeEdit"-->
+            </form>
+        </div>
     </div>
+    <!--The code above is very similiar to other code in the HTML and following code will not be commented on for View, Edit and Add functions unless parts are significantly different-->
+    <!--End of EDIT Booking-->
 
-    <!--ADD BOOKINGS-->
-    <div ng-show="addBookings">
-        <h2>Add Bookings</h2>
-        <form name="addBookingsForm" novalidate>
+    <!--ADD Bookings-->
+    <div class="container">
+        <div ng-show="addBookings">
+            <h2>Add Bookings</h2>
+            <h4>Add a new booking to the system below:</h4>
+            <form name="addBookingsForm" novalidate>
 
-            <p>Add a new booking to the system below:</p>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
 
-            <p>Number of Passengers:  <input name="numberOfPassengersFieldAdd" input type="text" placeholder="Number of Passengers" ng-model="bookingsPassenger" required ng-pattern='/^\d{1,10}$/' /> </p>
-            <div ng-show="addBookingsForm.numberOfPassengersFieldAdd.$invalid">
-                <span ng-show="addBookingsForm.numberOfPassengersFieldAdd.$error.required">Number of Passengers field is a Required Field</span>
-                <span ng-show="addBookingsForm.numberOfPassengersFieldAdd.$error.pattern">Number of Passengers must be entered in the numerical form 0-9</span>
-            </div>
+                        <label>Number of Passengers: </label>
+                        <input name="numberOfPassengersFieldAdd" input type="text" placeholder="Number of Passengers" class="form-control" ng-model="bookingsPassenger" required ng-pattern='/^\d{1,10}$/' />
+                        <div ng-show="addBookingsForm.numberOfPassengersFieldAdd.$invalid">
+                            <small ng-show="addBookingsForm.numberOfPassengersFieldAdd.$error.required">Number of Passengers field is a Required Field</small>
+                            <small ng-show="addBookingsForm.numberOfPassengersFieldAdd.$error.pattern">Number of Passengers must be entered in the numerical form 0-9</small>
+                        </div>
+                    </div>
 
-            <p>Drop Off Location:  <input name="dropOffFieldAdd" input type="text" placeholder="Drop Off Location" ng-model="bookingsDropOff" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
-            <div ng-show="addBookingsForm.dropOffFieldAdd.$invalid">
-                <span ng-show="addBookingsForm.dropOffFieldAdd.$error.required">Drop off location field is Required Field</span>
-                <span ng-show="addBookingsForm.dropOffFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
-            </div>
+                    <div class="form-group col-md-6">
+                        <label>Passenger Name: </label>
+                        <input name="PassengerNameFieldAdd" input type="text" placeholder="Passenger Name" class="form-control" ng-model="bookingsPasName" required ng-pattern='/^[a-zA-Z .’-]+$/' />
+                        <div ng-show="addBookingsForm.PassengerNameFieldAdd.$invalid">
+                            <small ng-show="addBookingsForm.PassengerNameFieldAdd.$error.required">Passenger Name field is a Required Field.</small>
+                            <small ng-show="addBookingsForm.PassengerNameFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field.</small>
+                        </div>
+                    </div>
+                </div>
 
-            <p>Passenger Name: <input name="PassengerNameFieldAdd" input type="text" placeholder="Passenger Name" ng-model="bookingsPasName" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /></p>
-            <div ng-show="addBookingsForm.PassengerNameFieldAdd.$invalid">
-                <span ng-show="addBookingsForm.PassengerNameFieldAdd.$error.required">Passenger Name field is a Required Field.</span>
-                <span ng-show="addBookingsForm.PassengerNameFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
-            </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Drop Off Location: </label>
+                        <input name="dropOffFieldAdd" input type="text" placeholder="Drop Off Location" class="form-control" ng-model="bookingsDropOff" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' />
+                        <div ng-show="addBookingsForm.dropOffFieldAdd.$invalid">
+                            <small ng-show="addBookingsForm.dropOffFieldAdd.$error.required">Drop off location field is Required Field</small>
+                            <small ng-show="addBookingsForm.dropOffFieldAdd.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</small>
+                        </div>
+                    </div>
 
-            <p>Pickup Location: <input name="pickUpFieldAdd" input type="text" placeholder="Pickup Location" ng-model="bookingsPickup " required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /></p>
-            <div ng-show="addBookingsForm.pickUpFieldAdd.$invalid">
-                <span ng-show="addBookingsForm.pickUpFieldAdd.$error.required">Pickup Location field is Required Field</span>
-                <span ng-show="addBookingsForm.pickUpFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
-            </div>
+                    <div class="form-group col-md-6">
+                        <label>Pickup Location: </label>
+                        <input name="pickUpFieldAdd" input type="text" placeholder="Pickup Location" class="form-control" ng-model="bookingsPickup " required ng-pattern='/^[a-zA-Z0-9 _-]*$/' />
+                        <div ng-show="addBookingsForm.pickUpFieldAdd.$invalid">
+                            <small ng-show="addBookingsForm.pickUpFieldAdd.$error.required">Pickup Location field is Required Field</small>
+                            <small ng-show="addBookingsForm.pickUpFieldAdd.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</small>
+                        </div>
+                    </div>
+                </div>
 
-            <p>Vehicle ID: <input name="vehicleIdFieldAdd" input type="text" placeholder="Vehicle ID" ng-model="bookingsVehicle" required ng-pattern='/^\d{1,10}$/'/></p>
-            <div ng-show="addBookingsForm.vehicleIdFieldAdd.$invalid">
-                <span ng-show="addBookingsForm.vehicleIdFieldAdd.$error.required">Vehicle ID field is a Required Field</span>
-                <span ng-show="addBookingsForm.vehicleIdFieldAdd.$error.pattern">Vehicle ID must be entered in the numerical form 0-9</span>
-            </div>
+                <div class="form-group">
+                    <label>Vehicle ID: </label>
+                    <input name="vehicleIdFieldAdd" input type="text" placeholder="Vehicle ID" class="form-control" ng-model="bookingsVehicle" required ng-pattern='/^\d{1,10}$/' />
+                    <div ng-show="addBookingsForm.vehicleIdFieldAdd.$invalid">
+                        <small ng-show="addBookingsForm.vehicleIdFieldAdd.$error.required">Vehicle ID field is a Required Field</small>
+                        <small ng-show="addBookingsForm.vehicleIdFieldAdd.$error.pattern">Vehicle ID must be entered in the numerical form 0-9</small>
+                    </div>
+                </div>
 
-            <button ng-disabled="addBookingsForm.$invalid" ng-click="addBooking()">Add</button>
-            <button ng-click="cancelBookingAdd()">Cancel</button>
-        </form>
+                <button class="buttonS" type="submit" ng-disabled="addBookingsForm.$invalid" ng-click="addBooking()">Add</button>
+                <button class="buttonclose" ng-click="cancelBookingAdd()">Cancel</button>
+            </form>
+        </div>
     </div>
-
-    <!--VIEW ROUTES-->
+    <!--End of ADD Booking-->
+    <!--VIEW Routes-->
     <div ng-show="viewRoutes">
         <h2>View Current Existing Routes</h2>
         <form>
@@ -190,55 +266,54 @@
                 </tbody>
             </table>
         </form>
-
-
     </div>
-
-    <!--Edit ROUTES-->
+    <!--End of VIEW Routes-->
+    <!--EDIT Routes-->
     <div ng-show="editRoutes">
         <h2>Edit Routes</h2>
         <form name="editRoutesForm" novalidate>
             <p>Edit the Routes using the fields below, then click submit:</p>
 
-            <p>Route End Point: <input name="routeEndFieldEdit" input type="text" placeholder="Route End Point" ng-model="editRouteEndPoint" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>Route End Point: <input name="routeEndFieldEdit" input type="text" placeholder="Route End Point" ng-model="editRouteEndPoint" required ng-pattern='/^[a-zA-Z .’-]+$/' /> </p>
             <div ng-show="editRoutesForm.routeEndFieldEdit.$invalid">
                 <span ng-show="editRoutesForm.routeEndFieldEdit.$error.required">Route End Point field is Required Field</span>
-                <span ng-show="editRoutesForm.routeEndFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="editRoutesForm.routeEndFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field.</span>
             </div>
 
-            <p>Route Start Point: <input name="routeStartFieldEdit" input type="text" placeholder="Route Start Point" ng-model="editRouteStartPoint" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>Route Start Point: <input name="routeStartFieldEdit" input type="text" placeholder="Route Start Point" ng-model="editRouteStartPoint" required ng-pattern='/^[a-zA-Z .’-]+$/' /> </p>
             <div ng-show="editRoutesForm.routeStartFieldEdit.$invalid">
                 <span ng-show="editRoutesForm.routeStartFieldEdit.$error.required">Route Start Point field is Required Field</span>
-                <span ng-show="editRoutesForm.routeStartFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="editRoutesForm.routeStartFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field.</span>
             </div>
 
             <button ng-disabled="editRoutesForm.$invalid" ng-click="closeRouteEdit(true)">Submit</button>
             <button ng-click="closeRouteEdit(false)">Cancel</button>
         </form>
     </div>
-
-    <!--Add Routes-->
+    <!--End of EDIT Routes-->
+    <!--ADD Routes-->
     <div ng-show="addRoutes">
         <h2>Add Route</h2>
         <form name="addRoutesForm" novalidate>
             <p>Add a new Route to the system below:</p>
 
-            <p>RouteEndPoint:  <input name="routeEndFieldAdd" input type="text" ng-model="routesRouteEndPoint" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>RouteEndPoint:  <input name="routeEndFieldAdd" input type="text" ng-model="routesRouteEndPoint" required ng-pattern='/^[a-zA-Z .’-]+$/' /> </p>
             <div ng-show="addRoutesForm.routeEndFieldAdd.$invalid">
                 <span ng-show="addRoutesForm.routeEndFieldAdd.$error.required">Route End Point field is Required Field</span>
-                <span ng-show="addRoutesForm.routeEndFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="addRoutesForm.routeEndFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field.</span>
             </div>
-            <p>RouteStartPoint:  <input name="routeStartFieldAdd" input type="text" ng-model="routesRouteStartPoint" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>RouteStartPoint:  <input name="routeStartFieldAdd" input type="text" ng-model="routesRouteStartPoint" required ng-pattern='/^[a-zA-Z .’-]+$/' /> </p>
             <div ng-show="addRoutesForm.routeStartFieldAdd.$invalid">
                 <span ng-show="addRoutesForm.routeStartFieldAdd.$error.required">Route Start Point field is Required Field</span>
-                <span ng-show="addRoutesForm.routeStartFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="addRoutesForm.routeStartFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field.</span>
             </div>
 
             <button ng-disabled="addRoutesForm.$invalid" ng-click="addRoute()">Add</button>
             <button ng-click="cancelRouteAdd()">Cancel</button>
-            </form>
+        </form>
     </div>
-
+    <!--End of ADD Routes-->
+    <!--VIEW Vehicles-->
     <div ng-show="viewVehicles">
         <h2>View Current Existing Vehicles</h2>
         <form>
@@ -269,75 +344,129 @@
             </table>
         </form>
     </div>
-
+    <!--End of VIEW Vehicles-->
+    <!--EDIT Vehicles-->
     <div ng-show="editVehicles">
         <h2>Edit Vehicles</h2>
         <form name="editVehiclesForm" novalidate>
 
-            <p>Edit the cehicles using the fields below, then click submit:</p>
+            <p>Edit the vehicles using the fields below, then click submit:</p>
 
             <label name="capacityFieldEdit" for="capacity" required> Capcity - Please Choose from the drop down box.</label>
             <select id="capacity" ng-model="editCapacity" required>
-                <option value="3">3</option>
-                <option value="5">5</option>
-                <option value="7">7</option>
+                <option value="3">Car Capcity 3</option>
+                <option value="5">Car Capcity 5</option>
+                <option value="7">Car Capcity 7</option>
             </select>
             <div ng-show="editVehiclesForm.capacityFieldEdit.$invalid">
                 <span ng-show="editVehiclesForm.capacityFieldEdit.$error.required">Route Start Point field is Required Field</span>
             </div>
 
-            <p>Driver:  <input name="driverFieldEdit" input type="text" ng-model="editDriver" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>Driver:  <input name="driverFieldEdit" input type="text" ng-model="editDriver" required ng-pattern='/^[a-zA-Z .’-]+$/' /> </p>
             <div ng-show="editVehiclesForm.driverFieldEdit.$invalid">
                 <span ng-show="editVehiclesForm.driverFieldEdit.$error.required">Driver field is Required Field</span>
-                <span ng-show="editVehiclesForm.driverFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="editVehiclesForm.driverFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field.</span>
             </div>
 
-            <p>Make: <input name="makeFieldEdit" input type="text" ng-model="editMake" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>Make: <input name="makeFieldEdit" input type="text" ng-model="editMake" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' /> </p>
             <div ng-show="editVehiclesForm.makeFieldEdit.$invalid">
                 <span ng-show="editVehiclesForm.makeFieldEdit.$error.required">Make field is Required Field</span>
-                <span ng-show="editVehiclesForm.makeFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="editVehiclesForm.makeFieldEdit.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</span>
             </div>
 
-            <p>Model: <input name="modelFieldEdit" input type="text" ng-model="editModel" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>Model: <input name="modelFieldEdit" input type="text" ng-model="editModel" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' /> </p>
             <div ng-show="editVehiclesForm.modelFieldEdit.$invalid">
                 <span ng-show="editVehiclesForm.modelFieldEdit.$error.required">Model field is Required Field</span>
-                <span ng-show="editVehiclesForm.modelFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="editVehiclesForm.modelFieldEdit.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</span>
             </div>
 
-            <p>Registration: <input name="registrationFieldEdit" input type="text" ng-model="editRegistration" required ng-pattern='/^[A-Z][a-z]+( [A-Z][a-z]+)?$/' /> </p>
+            <p>Registration: <input name="registrationFieldEdit" input type="text" ng-model="editRegistration" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' /> </p>
             <div ng-show="editVehiclesForm.registrationFieldEdit.$invalid">
                 <span ng-show="editVehiclesForm.registrationFieldEdit.$error.required">Registration field is Required Field</span>
-                <span ng-show="editVehiclesForm.registrationFieldEdit.$error.pattern">Please only enter Alphabetical characters in this field and start the field name with a capital letter.</span>
+                <span ng-show="editVehiclesForm.registrationFieldEdit.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</span>
             </div>
 
             <button ng-disabled="editVehiclesForm.$invalid" ng-click="closeVehicleEdit(true)">Submit</button>
             <button ng-click="closeVehicleEdit(false)">Cancel</button>
         </form>
     </div>
-
+    <!--End of EDIT Vehicles-->
+    <!--ADD Vehicles-->
     <div ng-show="addVehicles">
         <h2>Add Vehicles</h2>
-        <p>Add a new Vehicle to the system below:</p>
-        <p>Capacity:  <input type="text" ng-model="vehiclesCapacity" /> </p>
-        <p>Driver:  <input type="text" ng-model="vehiclesDriver" /> </p>
-        <p>Make: <input type="text" ng-model="vehiclesMake" /></p>
-        <p>Model: <input type="text" ng-model="vehiclesModel" /></p>
-        <p>Registration: <input type="text" ng-model="vehiclesRegistration" /></p>
+        <form name="addVehiclesForm" novalidate>
 
-        <button ng-click="addVehicle()">Add</button>
-        <button ng-click="cancelVechicleAdd()">Cancel</button>
+            <p>Add the vehicles using the fields below, then click submit:</p>
+            <label name="capacityFieldAdd" for="capacity" required> Capcity - Please Choose from the drop down box.</label>
+            <select id="capacity" ng-model="vehiclesCapacity" required>
+                <option value="3">Car Capcity 3</option>
+                <option value="5">Car Capcity 5</option>
+                <option value="7">Car Capcity 7</option>
+            </select>
+            <div ng-show="addVehiclesForm.capacityFieldAdd.$invalid">
+                <span ng-show="addVehiclesForm.capacityFieldAdd.$error.required">Route Start Point field is Required Field</span>
+            </div>
+
+            <p>Driver:  <input name="driverFieldAdd" input type="text" ng-model="vehiclesDriver" required ng-pattern='/^[a-zA-Z .’-]+$/' /> </p>
+            <div ng-show="addVehiclesForm.driverFieldAdd.$invalid">
+                <span ng-show="addVehiclesForm.driverFieldAdd.$error.required">Driver field is Required Field</span>
+                <span ng-show="addVehiclesForm.driverFieldAdd.$error.pattern">Please only enter Alphabetical characters in this field.</span>
+            </div>
+
+
+            <p>Make: <input name="makeFieldAdd" input type="text" ng-model="vehiclesMake" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' /> </p>
+            <div ng-show="addVehiclesForm.makeFieldAdd.$invalid">
+                <span ng-show="addVehiclesForm.makeFieldAdd.$error.required">Make field is Required Field</span>
+                <span ng-show="addVehiclesForm.makeFieldAdd.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</span>
+            </div>
+
+            <p>Model: <input name="modelFieldAdd" input type="text" ng-model="vehiclesModel" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' /> </p>
+            <div ng-show="addVehiclesForm.modelFieldAdd.$invalid">
+                <span ng-show="addVehiclesForm.modelFieldAdd.$error.required">Model field is Required Field</span>
+                <span ng-show="addVehiclesForm.modelFieldAdd.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</span>
+            </div>
+
+            <p>Registration: <input name="registrationFieldAdd" input type="text" ng-model="vehiclesRegistration" required ng-pattern='/^[a-zA-Z0-9 _-]*$/' /> </p>
+            <div ng-show="addVehiclesForm.registrationFieldAdd.$invalid">
+                <span ng-show="addVehiclesForm.registrationFieldAdd.$error.required">Registration field is Required Field</span>
+                <span ng-show="addVehiclesForm.registrationFieldAdd.$error.pattern">Please only enter Alphabetical and Numerical characters in this field.</span>
+            </div>
+
+            <button ng-disabled="addVehiclesForm.$invalid" ng-click="addVehicle()">Add</button>
+            <button ng-click="cancelVechicleAdd()">Cancel</button>
+        </form>
     </div>
 
 
+    <!--Footer In Document Styling-->
+    <style>
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: dimgrey;
+            color: white;
+            text-align: center;
+        }
+    </style>
 
+    <!--HTML Footer-->
+    <div class="footer">
+        <footer>
+            <p>&copy; Website made by Maxwell Allen and Titus Green for Sheffield Hallam University - Module WADI</p>
+        </footer>
+    </div>
+
+    <!--END of ADD Vehicles-->
+    <!--Calling External scripts necessary for BootStrap-->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 
-
+    <!--Calling the Interal JavaScript Files Module, Controller and App file-->
     <script src="Scripts/taxiApp.js"></script>
-
     <script src="Scripts/Module.js"></script>
     <script src="Scripts/Controller.js"></script>
 
