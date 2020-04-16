@@ -373,7 +373,7 @@
                     $scope.changeView('viewBookings');
                     $scope.viewLogin = false;
                     // Logout.visible
-                    console.log("User login accepted. Role: " + role);
+                    console.log("User login accepted. Role: " + $scope.role + response.Role);
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
