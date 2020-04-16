@@ -34,7 +34,7 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == "2") {
+            if ($scope.role == 2) {
                 $scope[view] = true;
             }
             else {
@@ -383,7 +383,7 @@
                 $scope.role = response.Role; // Need to check the JSON file attribute names
                 $scope.name = response.Name;
                 $scope.initialise();
-                $scope.viewLogin = false;
+                $scope.changeView('viewBookings');
             })
             .error(function (error) {
                 $scope.errorMessage = error;
