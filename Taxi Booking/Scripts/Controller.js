@@ -34,7 +34,7 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == 'Manager') {
+            if ($scope.role == '2') {
                 $scope[view] = true;
             }
             else {
