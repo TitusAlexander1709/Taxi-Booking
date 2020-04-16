@@ -373,7 +373,7 @@
                     $scope.changeView('viewBookings');
                     $scope.viewLogin = false;
                     // Logout.visible
-                    console.log("User login accepted");
+                    console.log("User login accepted. Role: " + $scope.role);
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
@@ -381,6 +381,7 @@
                 });
         }
         else {
+            $scope.authenticated = false;
             // Variables above are already reset, so just return user to login page 
             $scope.changeView('viewLogin');
 
