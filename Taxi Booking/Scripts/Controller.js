@@ -34,7 +34,7 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == '2') {
+            if ($scope.role == 'Manager') {
                 $scope[view] = true;
             }
             else {
@@ -101,7 +101,7 @@
 
     };
 
-    $scope.initialise();
+    //$scope.initialise();
 
     //Adding a Booking - Works
     $scope.addBooking = function () {
