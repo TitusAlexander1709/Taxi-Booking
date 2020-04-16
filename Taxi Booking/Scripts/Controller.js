@@ -6,66 +6,48 @@
     // bootstrap
     // User input validation using Angular Directives - TITUS
     // Clean up and refactor code & file structure
+    // Make all other links dissappear unless user is logged in
 
 
 
     //Login page is only view displayed until user succesfully enters a valid usernae/password
     $scope.viewLogin = true; // !May need moving!
 
-    $scope.changeView = function (view) { 
-        $scope.viewBookings = false;
-        $scope.addBookings = false;
-        $scope.addRoutes = false;
-        $scope.addVehicles = false;
-        $scope.viewRoutes = false;
-        $scope.viewVehicles = false;
-        $scope.editBookings - false;
-        $scope.editRoutes - false;
-        $scope.editVehicles = false;
+    $scope.changeView = function (view) {
+        if (authenticated) {
+            $scope.viewBookings = false;
+            $scope.addBookings = false;
+            $scope.addRoutes = false;
+            $scope.addVehicles = false;
+            $scope.viewRoutes = false;
+            $scope.viewVehicles = false;
+            $scope.editBookings = false;
+            $scope.editRoutes = false;
+            $scope.editVehicles = false;
 
-        //Potentially cleaner version of above but need to test further
-        //$scope.viewBookings =  $scope.addBookings = $scope.viewRoutes = $scope.viewVehicles = false;
-
-        /* The following checks if the user is attempting to view a manager-only section,
-         and will then check whether they are signed in as such before opening that view.
-         (Cant remember which views were manager only)
-         Initially had this as a switch case, but it was less efficient
-        
-        */
-        if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == 'Manager') {
-                $scope[view] = true;
+            /* The following checks if the user is attempting to view a manager-only section,
+        and will then check whether they are signed in as such before opening that view.
+        (Cant remember which views were manager only)
+        Initially had this as a switch case, but it was less efficient
+       
+       */
+            if (view == 'editRoutes' || view == 'addVehicles') {
+                if ($scope.role == 'Manager (2)') {
+                    $scope[view] = true;
+                }
+                else {
+                    $scope.errorMessage = "You must be signed in as a manager to view this";
+                    console.log("You must be a manager to do this");
+                };
             }
             else {
-                $scope.errorMessage = "You must be signed in as a manager to view this";
-                console.log("You must be a manager to do this");
+                $scope[view] = true;
             };
         }
         else {
-            $scope[view] = true;
-        };
-
-        //Old code. less efficient but looks nice. might need it.
-       /* switch (view) {
-            case 'editRoutes':
-                if ($scope.role == 'Manager') {
-                    $scope[view] = true;
-                }
-                else {
-                    $scope.errorMessage = "You must be signed in as a manager to view this";
-                }
-            break;
-            case 'addVehicles':
-                if ($scope.role == 'Manager') {
-                    $scope[view] = true;
-                }
-                else {
-                    $scope.errorMessage = "You must be signed in as a manager to view this";
-                }
-            break;
-            default:
-                $scope[view] = true; }*/
-             
+            $scope.errorMessage = "You must be signed in as a manager to view this";
+            console.log("You must be logged in to do this");
+        }
     };
 
 
@@ -384,9 +366,9 @@
             }
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
-                    $scope.authenticated = true; //User is logged in and has role and name associated with them
                     $scope.role = response.Role;
                     $scope.name = response.Name;
+                    $scope.authenticated = true; //User is logged in and has role and name associated with them
                     $scope.initialise();
                     $scope.changeView('viewBookings');
                     $scope.viewLogin = false;
