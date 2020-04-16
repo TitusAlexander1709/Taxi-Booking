@@ -353,7 +353,7 @@
 
     $scope.login = function (InOrOut) {
         console.log("User login commence");
-        // True == User Logging in. False == User logging out
+        // if InOrOut param True == User Logging in. False == User logging out
         $scope.name;
         $scope.role;
 
@@ -366,6 +366,8 @@
             }
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
+                    console.log("User login success. Credentials: " + response.Role + response.username + response.password + response.Name);
+
 
                     if ($scope.usernameEntry == response.username && $scope.passwordEntry == response.password) {
                         $scope.role = response.Role;
