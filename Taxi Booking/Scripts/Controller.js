@@ -364,7 +364,7 @@
                 username: $scope.usernameEntry,
                 password: $scope.passwordEntry,
             }
-            $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
+            $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/" + $scope.usernameEntry, authenticationDetails)
                 .success(function (response) {
                     console.log("User login success. Credentials: " + response.Role + response.username + response.password + response.Name);
                     $scope.details = response;
@@ -381,7 +381,6 @@
                         console.log("User login accepted. Role: " + $scope.role + response.Role);
                     }
                     else {
-                        console.log("User login accepted. Role: " + $scope.role + response.Role);
                         $scope.errorMessage = "incorrect credentials";
 
                     }
