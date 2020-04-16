@@ -22,6 +22,7 @@
         $scope.editBookings - false;
         $scope.editRoutes - false;
         $scope.editVehicles = false;
+        $scope.viewLogin = false;
 
         //Potentially cleaner version of above but need to test further
         //$scope.viewBookings =  $scope.addBookings = $scope.viewRoutes = $scope.viewVehicles = false;
@@ -33,7 +34,7 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == 'Manager') {
+            if ($scope.role == "2") {
                 $scope[view] = true;
             }
             else {
@@ -69,7 +70,6 @@
 
 
     $scope.initialise = function () {
-        $scope.viewLogin = false;
 
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking") //bookings REST API
             .success(function (response) {
@@ -382,7 +382,7 @@
                 $scope.initialise();
                 $scope.authenticated = true;
                 $scope.role = response.Role; // Need to check the JSON file attribute names
-                $scope.name = response.Name
+                $scope.name = response.Name;
             })
             .error(function (error) {
                 $scope.errorMessage = error;

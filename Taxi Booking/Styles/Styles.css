@@ -1,10 +1,51 @@
 ﻿body {
-
-
+    background-color: lightgray;
+    padding-top: 80px;
+    padding-bottom: 80px;
 }
 
 h1 {
-    color: royalblue;
-    
+    color: darkorange;
+}
 
+input.ng-touched.ng-invalid {
+    border: 1px solid red;
+}
+
+input.ng-touched.ng-valid {
+    border: 1px solid green;
+}
+
+
+.buttonS {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.buttonS:disabled {
+        background-color: grey;
+        color: black;
+}
+
+.buttonclose {
+    background-color: red; 
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
