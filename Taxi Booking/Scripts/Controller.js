@@ -33,12 +33,12 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == 2) {
+            if ($scope.role == 'Manager') {
                 $scope[view] = true;
             }
             else {
                 $scope.errorMessage = "You must be signed in as a manager to view this";
-                console.log("You must be a manager to see this");
+                console.log("You must be a manager to do this");
             };
         }
         else {
@@ -372,8 +372,8 @@
         console.log("User login commence");
         // True == User Logging in. False == User logging out
         $scope.authenticated = false;
-        $scope.name = "";
-        $scope.role = "";
+        $scope.name;
+        $scope.role;
 
 
         if (InOrOut) {  
@@ -389,6 +389,7 @@
                     $scope.name = response.Name;
                     $scope.initialise();
                     $scope.changeView('viewBookings');
+                    $scope.viewLogin = false;
                     // Logout.visible
                     console.log("User login accepted");
                 })
