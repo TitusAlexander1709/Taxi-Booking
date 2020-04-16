@@ -22,7 +22,6 @@
         $scope.editBookings - false;
         $scope.editRoutes - false;
         $scope.editVehicles = false;
-        $scope.viewLogin = false;
 
         //Potentially cleaner version of above but need to test further
         //$scope.viewBookings =  $scope.addBookings = $scope.viewRoutes = $scope.viewVehicles = false;
@@ -34,7 +33,7 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == '2') {
+            if ($scope.role == 2) {
                 $scope[view] = true;
             }
             else {
