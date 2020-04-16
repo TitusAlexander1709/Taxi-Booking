@@ -365,11 +365,14 @@
 
     };
 
-    $scope.authenticated = false;
-    $scope.name = "";
-    $scope.role = "";
+    //Login Functionality 
+    
 
     $scope.login = function () {
+        $scope.authenticated = false;
+        $scope.name = "";
+        $scope.role = "";
+
         var authenticationDetails = {
             username: $scope.usernameEntry,
             password: $scope.passwordEntry
