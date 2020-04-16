@@ -366,15 +366,23 @@
             }
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
-                    $scope.role = response.Role;
-                    $scope.name = response.Name;
-                    console.log("User login accepted. Role: " + $scope.role + response.Role);
-                    $scope.authenticated = true; //User is logged in and has role and name associated with them
-                    $scope.initialise();
-                    $scope.changeView('viewBookings');
-                    $scope.viewLogin = false;
-                    // Logout.visible
-                    console.log("User login accepted. Role: " + $scope.role + response.Role);
+
+                    if ($scope.usernameEntry == response.username && $scope.passwordEntry == response.password) {
+                        $scope.role = response.Role;
+                        $scope.name = response.Name;
+                        $scope.authenticated = true; //User is logged in and has role and name associated with them
+                        $scope.initialise();
+                        $scope.changeView('viewBookings');
+                        $scope.viewLogin = false;
+                        // Logout.visible
+                        console.log("User login accepted. Role: " + $scope.role + response.Role);
+                    }
+                    else {
+                        console.log("User login accepted. Role: " + $scope.role + response.Role);
+                        $scope.errorMessage = "incorrect credentials";
+
+                    }
+                    
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
@@ -382,9 +390,10 @@
                 });
         }
         else {
+            $scope.changeView('viewLogin');
+
             $scope.authenticated = false;
             // Variables above are already reset, so just return user to login page 
-            $scope.changeView('viewLogin');
 
         }
         
