@@ -32,7 +32,7 @@
        
        */
             if (view == 'editRoutes' || view == 'addVehicles') {
-                if ($scope.role == 'Manager (2)') {
+                if ($scope.role == 2) {
                     $scope[view] = true;
                 }
                 else {
@@ -368,6 +368,7 @@
                 .success(function (response) {
                     $scope.role = response.Role;
                     $scope.name = response.Name;
+                    console.log("User login accepted. Role: " + $scope.role + response.Role);
                     $scope.authenticated = true; //User is logged in and has role and name associated with them
                     $scope.initialise();
                     $scope.changeView('viewBookings');
