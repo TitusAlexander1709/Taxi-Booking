@@ -318,7 +318,7 @@
                 Registration: $scope.editRegistration
             };
             $http.put("http://webteach_net.hallam.shu.ac.uk/cmsds/api/vehicle/", editvehicleDetails)
-                .success(function (response) {
+                .success(function () {
                     $scope.initialise();
 
                 })
@@ -362,7 +362,7 @@
 
             var authenticationDetails = {
                 username: $scope.usernameEntry,
-                password: $scope.passwordEntry
+                password: $scope.passwordEntry,
             }
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
@@ -373,7 +373,7 @@
                     $scope.changeView('viewBookings');
                     $scope.viewLogin = false;
                     // Logout.visible
-                    console.log("User login accepted. Role: " + $scope.role);
+                    console.log("User login accepted. Role: " + role);
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
