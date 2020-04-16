@@ -46,7 +46,7 @@
                     <li class="nav-item" ng-click="changeView('addVehicles')" ng-model="btnAddVehicles">
                         <a class="nav-link" href="#">Add Vehicles</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" ng-click="login(false)" ng-model="btnLogout">
                         <a class="nav-link disabled" href="#">Logout</a>
                     </li>
                 </ul>
@@ -68,7 +68,7 @@
                 <input name="username" type="text" ng-model="usernameEntry" /> <br />
                 Enter Password
                 <input name="password" type="password" ng-model="passwordEntry" />
-                <button ng-click="login()">Login</button>
+                <button ng-click="login(true)">Login</button>
             </form>
         </div>
     </div>

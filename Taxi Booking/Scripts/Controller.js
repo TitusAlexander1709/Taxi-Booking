@@ -34,11 +34,12 @@
         
         */
         if (view == 'editRoutes' || view == 'addVehicles') {
-            if ($scope.role == 2) {
+            if ($scope.role == '2') {
                 $scope[view] = true;
             }
             else {
                 $scope.errorMessage = "You must be signed in as a manager to view this";
+                console.log("You must be a manager to see this");
             };
         }
         else {
@@ -368,30 +369,40 @@
     //Login Functionality 
     
 
-    $scope.login = function () {
+    $scope.login = function (InOrOut) {
+        console.log("User login commence");
+        // True == User Logging in. False == User logging out
         $scope.authenticated = false;
         $scope.name = "";
         $scope.role = "";
 
-        var authenticationDetails = {
-            username: $scope.usernameEntry,
-            password: $scope.passwordEntry
+
+        if (InOrOut) {  
+
+            var authenticationDetails = {
+                username: $scope.usernameEntry,
+                password: $scope.passwordEntry
+            }
+            $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
+                .success(function (response) {
+                    $scope.authenticated = true; //User is logged in and has role and name associated with them
+                    $scope.role = response.Role;
+                    $scope.name = response.Name;
+                    $scope.initialise();
+                    $scope.changeView('viewBookings');
+                    // Logout.visible
+                    console.log("User login accepted");
+                })
+                .error(function (error) {
+                    $scope.errorMessage = error;
+                    console.log("User login error");
+                });
         }
-        $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
-            .success(function (response) {
-                $scope.authenticated = true;
-                $scope.role = response.Role; // Need to check the JSON file attribute names
-                $scope.name = response.Name;
-                $scope.initialise();
-                $scope.changeView('viewBookings');
-            })
-            .error(function (error) {
-                $scope.errorMessage = error;
+        else {
+            // Variables above are already reset, so just return user to login page 
+            $scope.changeView('viewLogin');
 
-            });
-
+        }
+        
     };
-
-
-
 });
