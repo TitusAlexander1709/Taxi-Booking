@@ -14,7 +14,7 @@
     $scope.viewLogin = true; // !May need moving!
 
     $scope.changeView = function (view) {
-        if (authenticated) {
+        if ($scope.authenticated) {
             $scope.viewBookings = false;
             $scope.addBookings = false;
             $scope.addRoutes = false;
@@ -348,12 +348,12 @@
     };
 
     //Login Functionality 
-    
+    $scope.authenticated = false;
+
 
     $scope.login = function (InOrOut) {
         console.log("User login commence");
         // True == User Logging in. False == User logging out
-        $scope.authenticated = false;
         $scope.name;
         $scope.role;
 
