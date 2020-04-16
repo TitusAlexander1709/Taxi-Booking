@@ -364,14 +364,15 @@
                 username: $scope.usernameEntry,
                 password: $scope.passwordEntry,
             }
-            $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
+            $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
                     console.log("User login success. Credentials: " + response.Role + response.username + response.password + response.Name);
+                    $scope.details = response;
 
 
-                    if ($scope.usernameEntry == response.username && $scope.passwordEntry == response.password) {
-                        $scope.role = response.Role;
-                        $scope.name = response.Name;
+                    if ($scope.usernameEntry == details.username && $scope.passwordEntry == details.password) {
+                        $scope.role = details.Role;
+                        $scope.name = details.Name;
                         $scope.authenticated = true; //User is logged in and has role and name associated with them
                         $scope.initialise();
                         $scope.changeView('viewBookings');
