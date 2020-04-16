@@ -379,10 +379,11 @@
         }
         $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
             .success(function (response) {
-                $scope.initialise();
                 $scope.authenticated = true;
                 $scope.role = response.Role; // Need to check the JSON file attribute names
                 $scope.name = response.Name;
+                $scope.initialise();
+                $scope.viewLogin = false;
             })
             .error(function (error) {
                 $scope.errorMessage = error;
