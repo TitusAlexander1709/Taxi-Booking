@@ -370,9 +370,9 @@
                     $scope.details = response;
 
 
-                    if ($scope.usernameEntry == details.username && $scope.passwordEntry == details.password) {
-                        $scope.role = details.Role;
-                        $scope.name = details.Name;
+                    if ($scope.usernameEntry == $scope.details.username && $scope.passwordEntry == $scope.details.password) {
+                        $scope.role = $scope.details.Role;
+                        $scope.name = $scope.details.Name;
                         $scope.authenticated = true; //User is logged in and has role and name associated with them
                         $scope.initialise();
                         $scope.changeView('viewBookings');
