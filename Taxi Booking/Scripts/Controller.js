@@ -2,11 +2,12 @@
     //TO DO
     // CSS (at least 10 selectors used)
     // bootstrap
-    // User input validation using Angular Directives - TITUS
+    // User input validation using Angular Directives 
     // Clean up and refactor code & file structure
     // Make all other links dissappear unless user is logged in
     //HTML source can still be viewed for hidden elements - does this matter?
     // Can the add form fields reset when clicked on again
+    //make errors appear in html
 
 
     //Login page displayed until user successfully logs in
@@ -182,6 +183,7 @@
                 $scope.errorMessage = error;
 
             });
+        
     };
 
 
@@ -202,6 +204,7 @@
             $http.put("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/", editbookingDetails)
                 .success(function () {
                     $scope.initialise();
+                    $scope.editBookingsForm.$setPristine();
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;

@@ -66,18 +66,27 @@
 
             <form name="loginForm">
                 Enter Username
-                <input name="username" type="text" ng-model="usernameEntry" required/> <br />
+                <input name="username" type="text" ng-model="usernameEntry" required /> <br />
+
+                <div ng-show="loginForm.usernameEntry.$invalid">
+                    <span ng-show="loginForm.usernameEntry.$error.required">Username field is Required Field</span>
+                </div>
+
                 Enter Password
-                <input name="password" type="password" ng-model="passwordEntry" required/>
-                <button ng-click="login(true)"ng-disabled="loginForm.$invalid">Login</button>
+                <input name="password" type="password" ng-model="passwordEntry" required />
+
+                <div ng-show="loginForm.passwordEntry.$invalid">
+
+                    <span ng-show="loginForm.passwordEntry.$error.required">Password field is Required Field</span>
+                </div>
+
+
+
+                <button ng-click="login(true)" ng-disabled="loginForm.$invalid">Login</button>
 
             </form>
-            <div ng-show="loginForm.usernameEntry.$invalid">
-                <span ng-show="loginForm.usernameEntry.$error.required">Username field is Required Field</span>
-            </div>
-            <div ng-show="loginForm.passwordEntry.$invalid">
-                <span ng-show="loginForm.passwordEntry.$error.required">Password field is Required Field</span>
-            </div>
+            
+            
 
         </div>
     </div>
