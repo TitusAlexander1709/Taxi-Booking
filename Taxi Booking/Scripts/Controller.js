@@ -6,7 +6,7 @@
     // Clean up and refactor code & file structure
     // Make all other links dissappear unless user is logged in
     //HTML source can still be viewed for hidden elements - does this matter?
-
+    // Can the add form fields reset when clicked on again
 
 
     //Login page displayed until user successfully logs in
@@ -362,7 +362,7 @@
 
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
-                    console.log("User login success. Credentials: " + response.authenticated + response.role + response.username + response.password + response.name);
+                    console.log("API Response. Credentials: " + response.authenticated + response.role + response.username + response.password + response.name);
                     // If user entered correct user/pass, store their role and name, and set authorised = true
                     if (response.authenticated == true && response.role != 0) {
                         $scope.role = response.role;
