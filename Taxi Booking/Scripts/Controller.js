@@ -364,10 +364,11 @@
                 username: $scope.usernameEntry,
                 password: $scope.passwordEntry
             }
+
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
                     console.log("User login success. Credentials: " + response.authenticated + response.role + response.username + response.password + response.name);
-                    console.log(response);
+                    console.log("response: " + response);
                     if (response.authenticated == true && response.role != 0) {
                         $scope.role = response.role;
                         $scope.name = response.name;
