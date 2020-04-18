@@ -195,7 +195,7 @@
             //Save user input in object, then use PUT to save to REST API.
             var editbookingDetails = {
                 Id: bookID,
-                PassengerName: $scope.editPassengerName,
+                PassengerName: $scope.editPassengerName, // The API does not allow this field to be edited 
                 CurrentPassenger: $scope.editCurrentPassenger,
                 DropOffLocation: $scope.editDropOffLocation,
                 PickupLocation: $scope.editPickupLocation,
@@ -204,7 +204,6 @@
             $http.put("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/", editbookingDetails)
                 .success(function () {
                     $scope.initialise();
-                    $scope.editBookingsForm.$setPristine();
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
@@ -379,7 +378,7 @@
                     }
                     else {
                         $scope.errorMessage = "incorrect credentials, please try again";
-                        console.log("incorrect credentials, please try again");
+                        $scope.loginFormIncorrect = true; 
                     }           
                 })
                 .error(function (error) {
@@ -391,6 +390,7 @@
         else {
             //Role & Name Variables above are already reset, so just return user to login page 
             $scope.changeView('viewLogin');
+            $scope.loginFormIncorrect = false; 
             $scope.authenticated = false;
         }
         

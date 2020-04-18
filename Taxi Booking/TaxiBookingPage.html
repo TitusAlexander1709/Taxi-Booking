@@ -80,6 +80,9 @@
                     <span ng-show="loginForm.passwordEntry.$error.required">Password field is Required Field</span>
                 </div>
 
+                <div ng-show="loginFormIncorrect">
+                    <span> Incorrect Login Credentials, please try again. </span>
+                </div>
 
 
                 <button ng-click="login(true)" ng-disabled="loginForm.$invalid">Login</button>
