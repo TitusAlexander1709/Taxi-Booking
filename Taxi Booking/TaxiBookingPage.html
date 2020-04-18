@@ -26,7 +26,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button> <!--Uses bootstrap to make the navbar interactive as it will collapse and show a drop down button when the browser resolution is low-->
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav" ng-show="viewNavBar">
                 <ul class="navbar-nav"> <!--Navbar list and links. Links use ng-click to change view when they are clicked using the changeView method. -->
                     <li class="nav-item" ng-click="changeView('viewBookings')" ng-model="btnViewBookings">
                         <a class="nav-link" href="#">View Bookings</a>
@@ -46,7 +46,7 @@
                     <li class="nav-item" ng-click="changeView('addVehicles')" ng-model="btnAddVehicles">
                         <a class="nav-link" href="#">Add Vehicles</a>
                     </li>
-                    <li class="nav-item" ng-click="login(false)" ng-model="btnLogout" ng-show="viewBtnLogout">
+                    <li class="nav-item" ng-click="login(false)" ng-model="btnLogout">
                         <a class="nav-link" href="#">Logout</a>
                     </li>
                 <!--class disabled" for logout. this changes when logged in-->

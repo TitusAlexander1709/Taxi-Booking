@@ -373,7 +373,7 @@
                         $scope.initialise();
                         $scope.changeView('viewBookings');
                         $scope.viewLogin = false;
-                        $scope.viewBtnLogout = true;
+                        $scope.viewNavBar = true;
                         $scope.loginFormIncorrect = false; 
                     }
                     else {
@@ -390,7 +390,7 @@
         else {
             //Role & Name Variables above are already reset, so just return user to login page 
             $scope.changeView('viewLogin');
-            $scope.viewBtnLogout = false;
+            $scope.viewNavBar = false;
             $scope.authenticated = false;
         }
         
