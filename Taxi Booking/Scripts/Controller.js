@@ -11,7 +11,8 @@
 
 
     //Login page displayed until user successfully logs in
-    $scope.viewLogin = true; 
+    $scope.viewLogin = true;
+
 
     $scope.changeView = function (view) {
         if ($scope.authenticated) {
@@ -24,9 +25,10 @@
             $scope.editBookings = false;
             $scope.editRoutes = false;
             $scope.editVehicles = false;
+            $scope.errorMessage = false;
 
             //Checks if user accessing manager-restricted areas
-            if (view == 'editRoutes' || view == 'addVehicles') {
+            if (view == 'editRoutes' || view == 'addRoutes' || view == 'addVehicles' || view == 'editVehicles') {
                 if ($scope.role == 2) {
                     $scope[view] = true;
                 }
@@ -214,7 +216,7 @@
             $scope.initialise();
         }
         $scope.changeView('viewBookings'); 
-        $scope.editBookings = false; 
+        $scope.editBookings = false;
     };
     //End of editing Bookings
 
@@ -243,7 +245,7 @@
                 $scope.editRouteStartPoint = response.RouteStartPoint;
             })
             .error(function (error) {
-                $scope.errorMessage = error; 
+                $scope.errorMessage = error;
             });
     };
 
@@ -305,7 +307,7 @@
             });
     };
 
-    // Submit or Cancel booking edit
+    // Submit or Cancel Vehicle edit
     $scope.closeVehicleEdit = function (submit) {
         if (submit) {
             //Save user input and send to the REST API.
@@ -354,6 +356,8 @@
         console.log("User login commence");
         $scope.name = "";
         $scope.role = 0;
+        $scope.DeleteYes = false;
+        $scope.EditYes = true;
         // if InOrOut param True == User Logging in. False == User logging out
         if (InOrOut) {  
 
@@ -374,7 +378,13 @@
                         $scope.changeView('viewBookings');
                         $scope.viewLogin = false;
                         $scope.viewNavBar = true;
-                        $scope.loginFormIncorrect = false; 
+                        $scope.loginFormIncorrect = false;
+                        if ($scope.role == 2) {
+                            $scope.DeleteYes = true;
+                        };
+                        if ($scope.role == 1) {
+                            $scope.EditYes = false;
+                        };
                     }
                     else {
                         $scope.errorMessage = "incorrect credentials, please try again";
@@ -384,6 +394,7 @@
                 .error(function (error) {
                     $scope.errorMessage = error;
                     console.log("User login error");
+
                 });
         }
         // User logging out
