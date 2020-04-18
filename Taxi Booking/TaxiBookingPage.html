@@ -46,7 +46,7 @@
                     <li class="nav-item" ng-click="changeView('addVehicles')" ng-model="btnAddVehicles">
                         <a class="nav-link" href="#">Add Vehicles</a>
                     </li>
-                    <li class="nav-item" ng-click="login(false)" ng-model="btnLogout">
+                    <li class="nav-item" ng-click="login(false)" ng-model="btnLogout" ng-show="viewBtnLogout">
                         <a class="nav-link" href="#">Logout</a>
                     </li>
                 <!--class disabled" for logout. this changes when logged in-->
@@ -80,12 +80,11 @@
                     <span ng-show="loginForm.passwordEntry.$error.required">Password field is Required Field</span>
                 </div>
 
+                <button ng-click="login(true)" ng-disabled="loginForm.$invalid">Login</button>
+
                 <div ng-show="loginFormIncorrect">
                     <span> Incorrect Login Credentials, please try again. </span>
                 </div>
-
-
-                <button ng-click="login(true)" ng-disabled="loginForm.$invalid">Login</button>
 
             </form>
             

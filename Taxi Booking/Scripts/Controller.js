@@ -373,8 +373,8 @@
                         $scope.initialise();
                         $scope.changeView('viewBookings');
                         $scope.viewLogin = false;
-                        // !!!!!!!!LogoutButton.visible
-                        console.log("User login accepted. Role: " + $scope.role);
+                        $scope.viewBtnLogout = true;
+                        $scope.loginFormIncorrect = false; 
                     }
                     else {
                         $scope.errorMessage = "incorrect credentials, please try again";
@@ -390,7 +390,7 @@
         else {
             //Role & Name Variables above are already reset, so just return user to login page 
             $scope.changeView('viewLogin');
-            $scope.loginFormIncorrect = false; 
+            $scope.viewBtnLogout = false;
             $scope.authenticated = false;
         }
         
