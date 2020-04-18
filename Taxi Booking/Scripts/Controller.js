@@ -380,6 +380,7 @@
                     }
                     else {
                         $scope.errorMessage = "incorrect credentials, please try again";
+                        console.log("User login error");
 
                     }
                     
