@@ -368,7 +368,7 @@
                 .success(function (response) {
                     console.log("User login success. Credentials: " + response.Role + response.username + response.password + response.Name);
 
-                    if (response.authenticated) {
+                    if (response.authenticated == true && response.role != 0) {
                         $scope.role = response.role;
                         $scope.name = response.name;
                         $scope.authenticated = response.authenticated; //User is logged in and has role and name associated with them
