@@ -1,17 +1,16 @@
 ﻿angular.module("taxiBookingApp").controller("taxiBookingController", function ($scope, $http) {
     //TO DO
-    // Verify if logged in user is staff or manager before allowing them to edit certain things - TITUS
     // CSS (at least 10 selectors used)
-    // check if login actually works. dont we need a get request+if statement to verify username?
     // bootstrap
     // User input validation using Angular Directives - TITUS
     // Clean up and refactor code & file structure
     // Make all other links dissappear unless user is logged in
+    //HTML source can still be viewed for hidden elements - does this matter?
 
 
 
-    //Login page is only view displayed until user succesfully enters a valid usernae/password
-    $scope.viewLogin = true; // !May need moving!
+    //Login page displayed until user successfully logs in
+    $scope.viewLogin = true; 
 
     $scope.changeView = function (view) {
         if ($scope.authenticated) {
@@ -25,12 +24,7 @@
             $scope.editRoutes = false;
             $scope.editVehicles = false;
 
-            /* The following checks if the user is attempting to view a manager-only section,
-        and will then check whether they are signed in as such before opening that view.
-        (Cant remember which views were manager only)
-        Initially had this as a switch case, but it was less efficient
-       
-       */
+            //Checks if user accessing manager-restricted areas
             if (view == 'editRoutes' || view == 'addVehicles') {
                 if ($scope.role == 2) {
                     $scope[view] = true;
@@ -52,13 +46,14 @@
 
 
     $scope.initialise = function () {
+        //Gets and stores all API information in object
 
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking") //bookings REST API
             .success(function (response) {
                 $scope.booking = response;
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
+                $scope.errorMessage = error; 
 
             });
 
@@ -84,9 +79,11 @@
 
     //$scope.initialise();
 
-    //Adding a Booking - Works
+    //Adding a Booking
     $scope.addBooking = function () {
+        //Apply input validation checking on HTML Form
         $scope.editBookingsForm.$setPristine();
+        //Create object that stores HTML form inputs
         var bookingDetails = {
             CurrentPassenger: $scope.bookingsPassenger,
             DropOffLocation: $scope.bookingsDropOff,
@@ -94,8 +91,9 @@
             PickupLocation: $scope.bookingsPickup,
             VehicleId: $scope.bookingsVehicle
         };
+        //Send Post request to API along with user input Object
         $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/", bookingDetails)
-            .success(function (response) {
+            .success(function () {
                 $scope.initialise();
                 $scope.changeView('viewBookings');
             })
@@ -106,7 +104,7 @@
     //End of Adding a Booking
 
 
-    //Adding a Route - Works Now Thnx
+    //Adding a Route
     $scope.addRoute = function () {
         var routeDetails = {
             RouteEndPoint: $scope.routesRouteEndPoint,
@@ -121,12 +119,11 @@
                 $scope.errorMessage = error; 
 
             });
-
     };
     //End of Adding a Route
 
 
-    //Adding a Vehicle - Works
+    //Adding a Vehicle
     $scope.addVehicle = function () {
         var vehicleDetails = {
             Capacity: $scope.vehiclesCapacity,
@@ -166,12 +163,14 @@
     };
 
 
-    //Beginning of editing Bookings - Mostly Works apart from the Passanger Name not updating for some reason. 
+    //Beginning of editing Bookings - !!!Mostly Works apart from the Passanger Name not updating for some reason. 
+    //Show the edit view. Get the specific booking to edit through params, and then display in labels on html form.
     $scope.editBook = function (id) {
         $scope.changeView('editBookings');
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/" + id)
             .success(function (response) {
-                bookID = id; // is this needed/in correct format?
+                //API response variables assigned to HTML input fields
+                bookID = id; // NEEDED?!
                 $scope.editPassengerName = response.PassengerName;
                 $scope.editCurrentPassenger = response.CurrentPassenger;
                 $scope.editDropOffLocation = response.DropOffLocation;
@@ -189,10 +188,11 @@
 
     // Submit or Cancel booking edit
     $scope.closeEdit = function (submit) {
+        //If submitting edit info
         if (submit) {
-            //Save user input and send to the REST API. scope.names may need changing if they cause conflict with add/other same name variables
+            //Save user input in object, then use PUT to save to REST API.
             var editbookingDetails = {
-                Id: bookID,//Again, is this needed?
+                Id: bookID,
                 PassengerName: $scope.editPassengerName,
                 CurrentPassenger: $scope.editCurrentPassenger,
                 DropOffLocation: $scope.editDropOffLocation,
@@ -200,26 +200,26 @@
                 VehicleId: $scope.editVehicleId
             };
             $http.put("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/", editbookingDetails)
-                .success(function (response) {
+                .success(function () {
                     $scope.initialise();
-                    
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
                 });
         }
         else {
+            //Cancel edit
             $scope.initialise();
         }
-        $scope.changeView('viewBookings'); //May neeed to change position
-        $scope.editBookings = false; // Would be more efficient to leave this here as this is the only place it is relevant, rather than running this EVERY time the changeView function is used
+        $scope.changeView('viewBookings'); 
+        $scope.editBookings = false; 
     };
     //End of editing Bookings
 
 
     // Delete a booking from list
     $scope.deleteBook = function (id) {
-        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking" + "/" + id)
+        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/" + id)
             .success(function () {
                 $scope.initialise();
                 $scope.changeView('viewBookings');
@@ -231,7 +231,7 @@
     };
     //End of Delete a Booking
 
-    //Edit Route - Doesnt work Yet. No idea what ive done wrong. 
+    //Get edit Route info
     $scope.editRoute = function (id) {
         $scope.changeView('editRoutes');
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/route/" + id)
@@ -242,13 +242,13 @@
             })
             .error(function (error) {
                 $scope.errorMessage = error; 
-
             });
     };
 
 
     // Submit or Cancel Route edit
     $scope.closeRouteEdit = function (submit) {
+        //If saving edited data
         if (submit) {
             //Variable Declaration for Put update
             var editRouteDetails = {
@@ -256,12 +256,12 @@
                 RouteEndPoint: $scope.editRouteEndPoint,
                 RouteStartPoint: $scope.editRouteStartPoint
             };
-            $http.put("http://webteach_net.hallam.shu.ac.uk/cmsds/api/route" + "/", editRouteDetails)
+            $http.put("http://webteach_net.hallam.shu.ac.uk/cmsds/api/route/" , editRouteDetails)
                 .success(function (response) {
                     $scope.initialise();
                 })
                 .error(function (error) {
-                    $scope.errorMessage = error; // create error message view.
+                    $scope.errorMessage = error;
                 });
         }
         else {
@@ -273,7 +273,7 @@
 
     //Delete Routes
     $scope.deleteRoute = function (id) {
-        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/route" + "/" + id)
+        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/route/" + id)
             .success(function () {
                 $scope.initialise();
                 $scope.changeView('viewRoutes');
@@ -286,7 +286,6 @@
     };
 
     //Beginning of editing Vehicles
-    //Show the edit view. Get the specific booking to edit through params, and then display in labels on html form.
     $scope.editVehicle = function (id) {
         $scope.changeView('editVehicles');
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/vehicle/" + id)
@@ -300,16 +299,16 @@
 
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
-
+                $scope.errorMessage = error;
             });
     };
 
     // Submit or Cancel booking edit
     $scope.closeVehicleEdit = function (submit) {
         if (submit) {
-            //Save user input and send to the REST API. scope.names may need changing if they cause conflict with add/other same name variables
+            //Save user input and send to the REST API.
             var editvehicleDetails = {
+                // ID remains the same, as editing this cana affect data integrity
                 Id: vehicleID,
                 Capacity: $scope.editCapacity,
                 Driver: $scope.editDriver,
@@ -323,41 +322,37 @@
 
                 })
                 .error(function (error) {
-                    $scope.errorMessage = error; // create error message view.
+                    $scope.errorMessage = error; 
                 });
         }
         else {
             $scope.initialise();
         }
-        $scope.changeView('viewVehicles'); //May neeed to change position
+        $scope.changeView('viewVehicles');
     };
     //End of editing Vehicles
 
     //Delete Vehicles
     $scope.deleteVehicle = function (id) {
-        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/vehicle" + "/" + id)
+        $http.delete("http://webteach_net.hallam.shu.ac.uk/cmsds/api/vehicle/" + id)
             .success(function () {
                 $scope.initialise();
                 $scope.changeView('viewVehicles');
             })
             .error(function (error) {
-                $scope.errorMessage = error; // create error message view
-
+                $scope.errorMessage = error;
             });
-
     };
 
     //Login Functionality 
+    //Variable stores user where user is not authorised to access site until logged in
     $scope.authenticated = false;
-
 
     $scope.login = function (InOrOut) {
         console.log("User login commence");
+        $scope.name = "";
+        $scope.role = 0;
         // if InOrOut param True == User Logging in. False == User logging out
-        $scope.name;
-        $scope.role;
-
-
         if (InOrOut) {  
 
             var authenticationDetails = {
@@ -368,34 +363,32 @@
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
                     console.log("User login success. Credentials: " + response.authenticated + response.role + response.username + response.password + response.name);
+                    // If user entered correct user/pass, store their role and name, and set authorised = true
                     if (response.authenticated == true && response.role != 0) {
                         $scope.role = response.role;
                         $scope.name = response.name;
-                        $scope.authenticated = response.authenticated; //User is logged in and has role and name associated with them
+                        $scope.authenticated = true;
                         $scope.initialise();
                         $scope.changeView('viewBookings');
                         $scope.viewLogin = false;
-                        // LogoutButton.visible
+                        // !!!!!!!!LogoutButton.visible
                         console.log("User login accepted. Role: " + $scope.role);
                     }
                     else {
                         $scope.errorMessage = "incorrect credentials, please try again";
-                        console.log("User login error");
-
-                    }
-                    
+                        console.log("incorrect credentials, please try again");
+                    }           
                 })
                 .error(function (error) {
                     $scope.errorMessage = error;
                     console.log("User login error");
                 });
         }
+        // User logging out
         else {
+            //Role & Name Variables above are already reset, so just return user to login page 
             $scope.changeView('viewLogin');
-
             $scope.authenticated = false;
-            // Variables above are already reset, so just return user to login page 
-
         }
         
     };
