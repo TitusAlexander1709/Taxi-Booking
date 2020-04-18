@@ -66,11 +66,19 @@
 
             <form name="loginForm">
                 Enter Username
-                <input name="username" type="text" ng-model="usernameEntry" /> <br />
+                <input name="username" type="text" ng-model="usernameEntry" required/> <br />
                 Enter Password
-                <input name="password" type="password" ng-model="passwordEntry" />
-                <button ng-click="login(true)">Login</button>
+                <input name="password" type="password" ng-model="passwordEntry" required/>
+                <button ng-click="login(true)"ng-disabled="loginForm.$invalid">Login</button>
+
             </form>
+            <div ng-show="loginForm.usernameEntry.$invalid">
+                <span ng-show="loginForm.usernameEntry.$error.required">Username field is Required Field</span>
+            </div>
+            <div ng-show="loginForm.passwordEntry.$invalid">
+                <span ng-show="loginForm.passwordEntry.$error.required">Password field is Required Field</span>
+            </div>
+
         </div>
     </div>
     <!--End of Log In Form-->
@@ -355,7 +363,7 @@
 
             <p>Edit the vehicles using the fields below, then click submit:</p>
 
-            <label name="capacityFieldEdit" for="capacity" required> Capcity - Please Choose from the drop down box.</label>
+            <label name="capacityFieldEdit" for="capacity" required> Capacity - Please Choose from the drop down box.</label>
             <select id="capacity" ng-model="editCapacity" required>
                 <option value="3">Car Capcity 3</option>
                 <option value="5">Car Capcity 5</option>
