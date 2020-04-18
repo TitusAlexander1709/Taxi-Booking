@@ -362,11 +362,11 @@
 
             var authenticationDetails = {
                 username: $scope.usernameEntry,
-                password: $scope.passwordEntry,
+                password: $scope.passwordEntry
             }
             $http.post("http://webteach_net.hallam.shu.ac.uk/cmsds/api/login/", authenticationDetails)
                 .success(function (response) {
-                    console.log("User login success. Credentials: " + response.Role + response.username + response.password + response.Name);
+                    console.log("User login success. Credentials: " + response.authenticated + response.role + response.username + response.password + response.name);
 
                     if (response.authenticated == true && response.role != 0) {
                         $scope.role = response.role;
@@ -376,7 +376,7 @@
                         $scope.changeView('viewBookings');
                         $scope.viewLogin = false;
                         // LogoutButton.visible
-                        console.log("User login accepted. Role: " + $scope.role + response.Role);
+                        console.log("User login accepted. Role: " + $scope.role + response.role);
                     }
                     else {
                         $scope.errorMessage = "incorrect credentials, please try again";
