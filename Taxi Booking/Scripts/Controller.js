@@ -358,7 +358,6 @@
                         $scope.changeView('viewBookings');
                         $scope.viewLogin = false;
                         $scope.viewNavBar = true;
-                        $scope.loginFormIncorrect = false;
                         if ($scope.role == 2) {
                             $scope.DeleteYes = true;
                         };
@@ -367,8 +366,7 @@
                         };
                     }
                     else {
-                        $scope.errorMessage = "incorrect credentials, please try again";
-                        $scope.loginFormIncorrect = true; 
+                        $scope.errorMessage = "Incorrect credentials, please try again";
                     }           
                 })
                 .error(function (error) {
