@@ -261,7 +261,7 @@
                 </div>
 
                 <button class="buttonS" type="submit" ng-disabled="addBookingsForm.$invalid" ng-click="addBooking()">Add</button>
-                <button class="buttonclose" ng-click="cancelBookingAdd()">Cancel</button>
+                <button class="buttonclose" ng-click="changeView('viewBookings')">Cancel</button>
             </form>
         </div>
     </div>
@@ -359,7 +359,7 @@
                 </div>
 
                 <button class="buttonS" ng-disabled="addRoutesForm.$invalid" ng-click="addRoute()">Add</button>
-                <button class="buttonclose" ng-click="cancelRouteAdd()">Cancel</button>
+                <button class="buttonclose" ng-click="changeView('viewRoutes')">Cancel</button>
             </form>
         </div>
     </div>
@@ -526,7 +526,7 @@
                 </div>
 
                 <button class="buttonS" ng-disabled="addVehiclesForm.$invalid" ng-click="addVehicle()">Add</button>
-                <button class="buttonclose" ng-click="cancelVechicleAdd()">Cancel</button>
+                <button class="buttonclose" ng-click="changeView('viewVehicles')">Cancel</button>
             </form>
         </div>
     </div>

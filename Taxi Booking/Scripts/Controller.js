@@ -38,6 +38,7 @@
                 };
             }
             else {
+                //User is logged in accessing a non-restricted part of program
                 $scope[view] = true;
             };
         }
@@ -79,8 +80,6 @@
             });
 
     };
-
-    //$scope.initialise();
 
     //Adding a Booking
     $scope.addBooking = function () {
@@ -148,38 +147,21 @@
 
     };
     //End of Adding a Route
+    
 
-    //Cancel Function for Adding Booking
-    //As each cancel function currently does one thing (change view), it would be more efficient to simply call the change view function and do away with separate cancel functions
-    $scope.cancelBookingAdd = function () {
-        $scope.changeView('viewBookings')
-    };
-
-    //Cancel Function for Adding Route
-    $scope.cancelRouteAdd = function () {
-        $scope.changeView('viewRoutes')
-    };
-
-    //Cancel Function for Adding Route
-    $scope.cancelVechicleAdd = function () {
-        $scope.changeView('viewVehicles')
-    };
-
-
-    //Beginning of editing Bookings - !!!Mostly Works apart from the Passanger Name not updating for some reason. 
+    //Beginning of editing Booking
     //Show the edit view. Get the specific booking to edit through params, and then display in labels on html form.
     $scope.editBook = function (id) {
         $scope.changeView('editBookings');
         $http.get("http://webteach_net.hallam.shu.ac.uk/cmsds/api/booking/" + id)
             .success(function (response) {
                 //API response variables assigned to HTML input fields
-                bookID = id; // NEEDED?!
-                $scope.editPassengerName = response.PassengerName;
+                bookID = id; 
+                $scope.editPassengerName = response.PassengerName; 
                 $scope.editCurrentPassenger = response.CurrentPassenger;
                 $scope.editDropOffLocation = response.DropOffLocation;
                 $scope.editPickupLocation = response.PickupLocation;
                 $scope.editVehicleId = response.VehicleId;
-
             })
             .error(function (error) {
                 $scope.errorMessage = error;
@@ -187,8 +169,6 @@
             });
         
     };
-
-
 
     // Submit or Cancel booking edit
     $scope.closeEdit = function (submit) {
@@ -394,7 +374,6 @@
                 .error(function (error) {
                     $scope.errorMessage = error;
                     console.log("User login error");
-
                 });
         }
         // User logging out
